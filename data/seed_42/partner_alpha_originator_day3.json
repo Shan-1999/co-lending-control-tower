@@ -1,0 +1,118 @@
+{
+  "batchId" : "B-PARTNER_ALPHA-ORIGINATOR-20240117",
+  "businessDate" : "2024-01-17",
+  "declaredAmountPaise" : 4334587,
+  "declaredCount" : 11,
+  "partnerCode" : "PARTNER_ALPHA",
+  "records" : [ {
+    "amountPaise" : 336627,
+    "businessEventId" : "EVT-LOAN-000018",
+    "correlationId" : "CORR-LOAN-000018",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000018",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T09:53Z",
+    "utrReference" : "UTR-LOAN-000018-923"
+  }, {
+    "amountPaise" : 104536,
+    "businessEventId" : "EVT-LOAN-000024",
+    "correlationId" : "CORR-LOAN-000024",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000024",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T16:12Z",
+    "utrReference" : "UTR-LOAN-000024-293"
+  }, {
+    "amountPaise" : 580378,
+    "businessEventId" : "EVT-LOAN-000026",
+    "correlationId" : "CORR-LOAN-000026",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000026",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T16:29Z",
+    "utrReference" : "UTR-LOAN-000026-991"
+  }, {
+    "amountPaise" : 903416,
+    "businessEventId" : "EVT-LOAN-000029",
+    "correlationId" : "CORR-LOAN-000029",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000029",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T16:34Z",
+    "utrReference" : "UTR-LOAN-000029-417"
+  }, {
+    "amountPaise" : 197440,
+    "businessEventId" : "EVT-LOAN-000037",
+    "correlationId" : "CORR-LOAN-000037",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000037",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T10:19Z",
+    "utrReference" : "UTR-LOAN-000037-37"
+  }, {
+    "amountPaise" : 100992,
+    "businessEventId" : "EVT-LOAN-000049",
+    "correlationId" : "CORR-LOAN-000049",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000049",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T14:35Z",
+    "utrReference" : "UTR-LOAN-000049-950"
+  }, {
+    "amountPaise" : 433613,
+    "businessEventId" : "EVT-LOAN-000053",
+    "correlationId" : "CORR-LOAN-000053",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000053",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T09:49Z",
+    "utrReference" : "UTR-LOAN-000053-95"
+  }, {
+    "amountPaise" : -303391,
+    "businessEventId" : "EVT-LOAN-000056",
+    "correlationId" : "CORR-LOAN-000056",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000056",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T14:54Z",
+    "utrReference" : "UTR-LOAN-000056-201"
+  }, {
+    "amountPaise" : 748564,
+    "businessEventId" : "EVT-LOAN-000072",
+    "correlationId" : "CORR-LOAN-000072",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000072",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T09:35Z",
+    "utrReference" : "UTR-LOAN-000072-649"
+  }, {
+    "amountPaise" : 463113,
+    "businessEventId" : "EVT-LOAN-000088",
+    "correlationId" : "CORR-LOAN-000088",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000088",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T09:35Z",
+    "utrReference" : "UTR-LOAN-000088-567"
+  }, {
+    "amountPaise" : 769299,
+    "businessEventId" : "EVT-LOAN-000099",
+    "correlationId" : "CORR-LOAN-000099",
+    "eventType" : "DISBURSEMENT_INSTRUCTION",
+    "loanReference" : "LOAN-000099",
+    "sourceSystem" : "ORIGINATOR",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-17T09:20Z",
+    "utrReference" : "UTR-LOAN-000099-66"
+  } ]
+}

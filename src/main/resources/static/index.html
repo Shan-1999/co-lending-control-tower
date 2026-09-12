@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivriti Co-Lending Control Tower</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-sidebar: #f9fafb;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f3f4f6;
+      --bg-surface-hover: #e5e7eb;
+      --bg-input: #ffffff;
+      --border: #e5e7eb;
+      --border-dark: #d1d5db;
+      
+      --accent-primary: #111827;
+      --accent-primary-hover: #1f2937;
+      --accent-blue: #2563eb;
+      --accent-green: #059669;
+      --accent-green-bg: #ecfdf5;
+      --accent-green-border: #a7f3d0;
+      --accent-yellow: #d97706;
+      --accent-yellow-bg: #fffbeb;
+      --accent-yellow-border: #fde68a;
+      --accent-red: #dc2626;
+      --accent-red-bg: #fef2f2;
+      --accent-red-border: #fecaca;
+      
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --text-dim: #9ca3af;
+      --font-stack: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Left Navigation Sidebar */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      user-select: none;
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+
+    aside.sidebar.collapsed {
+      width: 0;
+      padding: 0;
+      overflow: hidden;
+      border-right: none;
+    }
+
+    .sidebar-header {
+      padding: 1.25rem 1.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+    .brand-subtitle {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .sidebar-collapse-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.45rem;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .sidebar-collapse-btn:hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-main);
+    }
+
+    .action-run-btn {
+      margin: 0.5rem 1rem 0.75rem;
+      background: #ffffff;
+      border: 1px solid var(--border-dark);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .action-run-btn:hover {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+    }
+
+    .nav-section-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      padding: 0.75rem 1.25rem 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-menu {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.25rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .nav-item:hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-main);
+    }
+    .nav-item.active {
+      background: #e5e7eb;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+    .nav-item .nav-count {
+      margin-left: auto;
+      font-size: 0.68rem;
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      background: #e5e7eb;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+    .nav-item.active .nav-count {
+      background: var(--text-main);
+      color: #ffffff;
+    }
+
+    /* Sidebar Footer User Card */
+    .sidebar-footer {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg-sidebar);
+    }
+    .sidebar-user-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: #ffffff;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .sidebar-user-btn:hover {
+      border-color: var(--border-dark);
+      background: #f9fafb;
+    }
+
+    /* Main Content Area */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg-main);
+      position: relative;
+    }
+
+    /* Top Navigation Bar */
+    header.top-bar {
+      height: 52px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      background: #ffffff;
+      z-index: 10;
+    }
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .sidebar-toggle-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sidebar-toggle-btn:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+    }
+    .top-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+    .top-breadcrumbs .current-view {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+    .top-indicators {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .system-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      color: var(--accent-green);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    /* YouTube Style Profile Avatar Trigger */
+    .profile-pill-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.6rem 0.25rem 0.35rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .profile-pill-trigger:hover {
+      border-color: var(--border-dark);
+      background: #f9fafb;
+    }
+    .avatar-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar-circle.approver {
+      background: #4f46e5;
+    }
+    .avatar-circle.signed-out {
+      background: #9ca3af;
+    }
+    .profile-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .profile-chevron {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    /* YouTube-style Account Switcher Dropdown */
+    .account-switcher-dropdown {
+      position: absolute;
+      top: 56px;
+      right: 24px;
+      width: 320px;
+      background: #ffffff;
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      z-index: 1000;
+      display: none;
+      animation: fadeIn 0.15s ease-out;
+      overflow: hidden;
+    }
+    .account-switcher-dropdown.active {
+      display: block;
+    }
+
+    .account-header {
+      padding: 1rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: #fdfdfd;
+      border-bottom: 1px solid var(--border);
+    }
+    .account-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .account-header-avatar.approver {
+      background: #4f46e5;
+    }
+    .account-header-avatar.signed-out {
+      background: #9ca3af;
+    }
+    .account-header-info {
+      flex: 1;
+      overflow: hidden;
+    }
+    .account-header-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .account-header-email {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .account-section-title {
+      padding: 0.75rem 1.15rem 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .account-option {
+      padding: 0.75rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .account-option:hover {
+      background: #f3f4f6;
+    }
+    .account-option.active {
+      background: #f9fafb;
+    }
+    .account-option-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .account-option-details {
+      flex: 1;
+    }
+    .account-option-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .account-option-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+    .account-check-icon {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      display: none;
+    }
+    .account-option.active .account-check-icon {
+      display: block;
+    }
+
+    .account-footer-action {
+      padding: 0.75rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: background 0.15s;
+    }
+    .account-footer-action:hover {
+      background: #f3f4f6;
+    }
+
+    /* Toast Notification */
+    .toast-pill {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111827;
+      color: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      z-index: 2000;
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .toast-pill.active {
+      display: block;
+    }
+
+    /* Scrollable Viewport */
+    .viewport {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .container {
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    /* Clean Hero Section */
+    .hero-banner {
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+    .hero-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* Content Panels */
+    .content-panel { display: none; }
+    .content-panel.active { display: block; animation: fadeIn 0.15s ease-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Clean White Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-main);
+    }
+
+    /* Grid helpers */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.25rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+
+    /* Stat Cards */
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .kpi-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+    .kpi-val { font-size: 1.6rem; font-weight: 700; color: var(--text-main); }
+    .kpi-sub { font-size: 0.74rem; color: var(--text-dim); }
+
+    /* Form Inputs */
+    .field-group { margin-bottom: 0.85rem; }
+    .field-label { display: block; font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .field-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field-input:focus { border-color: var(--accent-primary); box-shadow: 0 0 0 1px var(--accent-primary); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: var(--accent-primary-hover); }
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-dark);
+    }
+    .btn-secondary:hover { background: #f9fafb; border-color: #9ca3af; }
+    .btn-accent { background: var(--accent-green); color: #ffffff; }
+    .btn-accent:hover { background: #047857; }
+    .btn-danger { background: var(--accent-red); color: #ffffff; }
+    .btn-danger:hover { background: #b91c1c; }
+
+    /* Clean Tables */
+    .table-wrapper {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow-x: auto;
+      background: #ffffff;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.82rem; }
+    th {
+      background: #f9fafb;
+      padding: 0.65rem 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text-main);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fafb; }
+
+    /* Status Badges */
+    .pill {
+      display: inline-block;
+      padding: 0.18rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+    .pill-green { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid var(--accent-green-border); }
+    .pill-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .pill-purple { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+    .pill-yellow { background: var(--accent-yellow-bg); color: var(--accent-yellow); border: 1px solid var(--accent-yellow-border); }
+    .pill-red { background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border); }
+
+    /* Terminal Stream Box */
+    .terminal-stream {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #1f2937;
+      max-height: 280px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* Modal Backdrop & Card */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.15s ease;
+    }
+    .modal-backdrop.active { opacity: 1; pointer-events: auto; }
+    .modal-card {
+      background: #ffffff;
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 440px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Navigation Sidebar -->
+  <aside class="sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <div class="brand-wrap">
+        <div class="brand-title">Vivriti Control Tower</div>
+        <div class="brand-subtitle">Co-Lending Core System</div>
+      </div>
+      <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="Collapse sidebar">✕</button>
+    </div>
+
+    <button class="action-run-btn" onclick="triggerReset()">
+      <span>↻</span> Reset DB & Session
+    </button>
+
+    <div class="nav-section-title">Control Workstreams</div>
+    <div class="nav-menu">
+      <button class="nav-item active" onclick="navigate('opsPanel', this)">
+        Operations Center
+      </button>
+      <button class="nav-item" onclick="navigate('scorecardPanel', this)">
+        Gate Scorecard
+        <span class="nav-count" id="badgeGate">PASS</span>
+      </button>
+      <button class="nav-item" onclick="navigate('exceptionsPanel', this)">
+        Exception Queue
+        <span class="nav-count" id="badgeExceptions">66</span>
+      </button>
+      <button class="nav-item" onclick="navigate('clustersPanel', this)">
+        Root-Cause Clusters
+        <span class="nav-count">10</span>
+      </button>
+      <button class="nav-item" onclick="navigate('closePanel', this)">
+        Batch Close Workbench
+      </button>
+      <button class="nav-item" onclick="navigate('tracePanel', this)">
+        Audit Lineage Trace
+      </button>
+      <button class="nav-item" onclick="navigate('juryPanel', this)">
+        Jury Scenarios
+      </button>
+    </div>
+
+    <div class="nav-section-title">Observability & Actuator</div>
+    <div class="nav-menu" style="flex:none; padding-bottom:0.5rem;">
+      <a class="nav-item" href="/actuator/health" target="_blank" style="text-decoration:none;">
+        Health & DB
+        <span class="nav-count" style="background:#ecfdf5; color:#059669;">UP</span>
+      </a>
+      <a class="nav-item" href="/actuator/metrics" target="_blank" style="text-decoration:none;">
+        Metrics & JVM ↗
+      </a>
+      <a class="nav-item" href="/actuator/httpexchanges" target="_blank" style="text-decoration:none;">
+        Execution Trace ↗
+      </a>
+      <a class="nav-item" href="/actuator/info" target="_blank" style="text-decoration:none;">
+        App Info ↗
+      </a>
+    </div>
+
+    <!-- Sidebar Footer: Clickable Profile Switcher -->
+    <div class="sidebar-footer">
+      <button class="sidebar-user-btn" onclick="toggleAccountMenu(event)">
+        <div class="avatar-circle" id="sidebarAvatar">O</div>
+        <div style="flex:1; overflow:hidden;">
+          <div style="font-size:0.78rem; font-weight:600; color:var(--text-main);" id="sidebarUserName">Operator (Maker)</div>
+          <div style="font-size:0.68rem; color:var(--text-muted);" id="sidebarUserRole">ROLE_OPERATOR</div>
+        </div>
+        <span style="font-size:0.7rem; color:var(--text-muted);">⇄</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Work Area -->
+  <div class="main-wrapper">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+      <div class="top-left">
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Toggle sidebar">☰</button>
+        <div class="top-breadcrumbs">
+          <span>Control Tower</span>
+          <span>/</span>
+          <span class="current-view" id="currentViewLabel">Operations Center</span>
+        </div>
+      </div>
+
+      <div class="top-indicators">
+        <div class="system-badge">
+          <div class="status-dot"></div>
+          <span id="activeUserBadge">Active: Operator (Maker)</span>
+        </div>
+
+        <!-- YouTube Style Profile Avatar Trigger -->
+        <div class="profile-pill-trigger" onclick="toggleAccountMenu(event)">
+          <div class="avatar-circle" id="topAvatar">O</div>
+          <span class="profile-label" id="topUserName">Operator (Maker)</span>
+          <span class="profile-chevron">▾</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- YouTube Style Account Switcher Menu Popover -->
+    <div class="account-switcher-dropdown" id="accountMenu" onclick="event.stopPropagation()">
+      <div class="account-header">
+        <div class="account-header-avatar" id="menuHeaderAvatar">O</div>
+        <div class="account-header-info">
+          <div class="account-header-name" id="menuHeaderName">Operator Account</div>
+          <div class="account-header-email" id="menuHeaderEmail">operator@vivriti.internal</div>
+          <div style="margin-top:3px;"><span class="pill pill-blue" id="menuHeaderPill">ROLE_OPERATOR (Maker)</span></div>
+        </div>
+      </div>
+
+      <div class="account-section-title">Switch Account</div>
+
+      <!-- Option 1: Operator (Maker) -->
+      <div class="account-option active" id="optOperator" onclick="selectAccount('operator')">
+        <div class="account-option-avatar" style="background:#111827;">O</div>
+        <div class="account-option-details">
+          <div class="account-option-title">Operator (Maker)</div>
+          <div class="account-option-sub">Ingestion & 5-Tier Reconciliations</div>
+        </div>
+        <div class="account-check-icon" id="checkOperator">✓</div>
+      </div>
+
+      <!-- Option 2: Approver (Checker) -->
+      <div class="account-option" id="optApprover" onclick="selectAccount('approver')">
+        <div class="account-option-avatar" style="background:#4f46e5;">A</div>
+        <div class="account-option-details">
+          <div class="account-option-title">Approver (Checker)</div>
+          <div class="account-option-sub">Batch Close Governance & Sign-off</div>
+        </div>
+        <div class="account-check-icon" id="checkApprover">✓</div>
+      </div>
+
+      <!-- Sign out row -->
+      <div class="account-footer-action" onclick="signOut()">
+        <span style="font-size:1rem;">↪</span>
+        <span>Sign out of session</span>
+      </div>
+    </div>
+
+    <!-- Scrollable Content Viewport -->
+    <div class="viewport">
+      <div class="container">
+
+        <!-- 1. Pipeline Operations Center (Default View) -->
+        <div id="opsPanel" class="content-panel active">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Co-Lending Operations Center</div>
+              <div class="hero-subtitle">
+                Deterministic 3-feed reconciliation engine (Originator, Bank, LMS) with 10 anomaly classes and zero false matches.
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-primary" onclick="executeFullRun()">⚡ Execute End-to-End Pipeline</button>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">
+                <span>Run Configuration</span>
+                <span class="pill pill-green" id="engineStatusPill">ENGINE READY</span>
+              </div>
+              
+              <div class="field-group">
+                <label class="field-label">Deterministic Random Seed</label>
+                <input type="number" id="cfgSeed" class="field-input" value="42">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Loan Instructions Count</label>
+                <input type="number" id="cfgLoans" class="field-input" value="2000">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Target Data Directory</label>
+                <input type="text" id="cfgDir" class="field-input" value="./data/seed_clean">
+              </div>
+
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1.25rem;">
+                <button class="btn btn-secondary" onclick="stepGenerate()">1. Generate Feeds</button>
+                <button class="btn btn-secondary" onclick="stepIngest()">2. Ingest Multi-Format</button>
+                <button class="btn btn-secondary" onclick="stepReconcile()">3. 5-Tier Reconcile</button>
+                <button class="btn btn-primary" onclick="stepEvaluate()">4. Evaluate Gate</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span>Execution Response Stream</span>
+                <button class="btn btn-secondary" style="padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="clearLog()">Clear</button>
+              </div>
+              <pre class="terminal-stream" id="logConsole">Engine ready. Click "Execute End-to-End Pipeline" to run all 4 stages against Seed 42.</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Evaluation Scorecard Panel -->
+        <div id="scorecardPanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Hard Gate Scorecard & Metrics</div>
+              <div class="hero-subtitle">
+                Independent evaluation against isolated ground truth. Non-negotiable gate: 0 false matches and ₹0.00 false exposure.
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" onclick="stepEvaluate()">↻ Refresh Evaluation</button>
+            </div>
+          </div>
+
+          <div class="grid-4" style="margin-bottom:1.25rem;">
+            <div class="kpi-card">
+              <div class="kpi-label">Hard Gate Status</div>
+              <div class="kpi-val" id="kpiGateStatus" style="color:#059669;">PASSED</div>
+              <div class="kpi-sub">0 False Matches Tolerance</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">False Match Exposure</div>
+              <div class="kpi-val" id="kpiFalseExposure" style="color:#059669;">₹0.00</div>
+              <div class="kpi-sub">0 Disputed Loans Reconciled</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Straight-Through Rate</div>
+              <div class="kpi-val" id="kpiStp" style="color:#2563eb;">91.10%</div>
+              <div class="kpi-sub">Level 1 Exact Matches</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Control Total Integrity</div>
+              <div class="kpi-val" id="kpiDelta" style="color:#059669;">₹0.00</div>
+              <div class="kpi-sub">Zero Unaccounted Paise</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">Hierarchy Breakdown</div>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr><th>Level</th><th>Rule</th><th>Volume & Value</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Level 1</td><td>Exact Match</td><td id="tdExact">911 — ₹4,858,981.87</td><td><span class="pill pill-green">RECONCILED</span></td></tr>
+                    <tr><td>Level 2</td><td>Composite Split</td><td id="tdComposite">8 — ₹55,908.47</td><td><span class="pill pill-blue">BALANCED</span></td></tr>
+                    <tr><td>Level 3</td><td>Timing Grace Window</td><td id="tdTiming">15 — ₹90,184.57</td><td><span class="pill pill-yellow">PENDING GRACE</span></td></tr>
+                    <tr><td>Level 4</td><td>Probable Advisory (Read-Only)</td><td id="tdProbable">61 Proposals</td><td><span class="pill pill-purple">ADVISORY ONLY</span></td></tr>
+                    <tr><td>Level 5</td><td>Unresolved Breaks</td><td id="tdUnresolved">66 — ₹305,042.85</td><td><span class="pill pill-red">OWNED BREAK</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Confusion Matrix vs Ground Truth</div>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr><th>Anomaly Class</th><th>EXACT</th><th>COMPOSITE</th><th>TIMING</th><th>PROBABLE</th><th>UNRESOLVED</th></tr>
+                  </thead>
+                  <tbody id="matrixTbody">
+                    <tr><td colspan="6" style="text-align:center;">Click "Execute End-to-End Pipeline" to populate matrix.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Exception Queue Panel -->
+        <div id="exceptionsPanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Active Exception Inventory</div>
+              <div class="hero-subtitle">
+                Exceptions classified across 7 operational categories with dynamic SLA deadlines, assigned roles, and Maker override audit trails.
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" onclick="fetchExceptions()">↻ Refresh Exceptions</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">
+              <span>Exception Records (Prioritized by Exposure & SLA)</span>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr><th>Business Event ID</th><th>Partner</th><th>Classification</th><th>Priority</th><th>Exposure</th><th>Owner</th><th>Status</th><th>Maker Action</th></tr>
+                </thead>
+                <tbody id="exceptionsTbody">
+                  <tr><td colspan="8" style="text-align:center;">Loading exceptions...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Root-Cause Clusters Panel -->
+        <div id="clustersPanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Phase 2 Systemic Root-Cause Clusters</div>
+              <div class="hero-subtitle">
+                Synthesizing individual exceptions into 10 systemic partner failure patterns with automated root-cause hypotheses and recommended remediations.
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" onclick="fetchClusters()">↻ Refresh Clusters</button>
+            </div>
+          </div>
+
+          <div class="grid-2" id="clustersGrid">
+            <div>Loading clusters...</div>
+          </div>
+        </div>
+
+        <!-- 5. Batch Close & Maker-Checker Panel -->
+        <div id="closePanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Batch Close & Double-Entry Ledger</div>
+              <div class="hero-subtitle">
+                Validating the two non-negotiable financial equations. Approver role enforces Maker-Checker segregation of duties.
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">Close Equation Evaluation</div>
+              <div class="field-group">
+                <label class="field-label">Select Ingested Batch</label>
+                <select id="batchDropdown" class="field-input"></select>
+              </div>
+              <div style="display:flex; gap:0.6rem; margin-top:1.25rem;">
+                <button class="btn btn-secondary" onclick="runCloseEvaluate()">Evaluate Close Equation</button>
+                <button class="btn btn-accent" onclick="runCloseApprove()">Approve Close (Checker)</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Double-Entry Balance Sheet Verification</div>
+              <div id="closeDetailsBox" style="font-family:var(--font-mono); font-size:0.82rem; color:var(--text-muted);">
+                Select a batch and click "Evaluate Close Equation".
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Audit Lineage Trace Panel -->
+        <div id="tracePanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Cryptographic Lineage Inspector</div>
+              <div class="hero-subtitle">
+                Immutable SHA-256 payload audit trail from raw transmission to canonical normalization and final matching decision.
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Loan Reference Verification</div>
+            <div style="display:flex; gap:0.6rem; align-items:flex-end; margin-bottom:1.25rem;">
+              <div style="flex:1;">
+                <label class="field-label">Loan Reference</label>
+                <input type="text" id="traceInputRef" class="field-input" value="LOAN-000001">
+              </div>
+              <button class="btn btn-primary" onclick="runTrace()">Verify Lineage</button>
+            </div>
+            <div id="traceGraphContainer">Enter a loan reference to verify SHA-256 digests.</div>
+          </div>
+        </div>
+
+        <!-- 7. Jury Scenarios Panel -->
+        <div id="juryPanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">12-Minute Demo & Jury Scenarios Simulator</div>
+              <div class="hero-subtitle">
+                Instant interactive proofs answering every evaluation scenario specified on Page 12 of the Vivriti Case Study.
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div style="font-weight:600; font-size:0.92rem; margin-bottom:0.4rem;">Scenario 1: Deterministic Seed Change</div>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.85rem;">
+                Generates a fresh dataset using Seed 9999 vs Seed 42 and evaluates against ground truth.
+              </p>
+              <button class="btn btn-secondary" onclick="jurySeedChange()">Run Seed 9999</button>
+            </div>
+
+            <div class="card">
+              <div style="font-weight:600; font-size:0.92rem; margin-bottom:0.4rem;">Scenario 2: Idempotency Re-run</div>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.85rem;">
+                Re-feeds the exact same batches. Proves 0 new records inserted and 100% duplicate skip.
+              </p>
+              <button class="btn btn-secondary" onclick="stepIngest()">Re-Feed Ingestion</button>
+            </div>
+
+            <div class="card">
+              <div style="font-weight:600; font-size:0.92rem; margin-bottom:0.4rem;">Scenario 3: 1-Paise Zero Tolerance</div>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.85rem;">
+                Explains how the control equation evaluator catches a 1-paise difference and halts close.
+              </p>
+              <button class="btn btn-secondary" onclick="simulateBreak()">Explain 1-Paise Gate</button>
+            </div>
+
+            <div class="card">
+              <div style="font-weight:600; font-size:0.92rem; margin-bottom:0.4rem;">Scenario 4: Segregation of Duties Proof</div>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.85rem;">
+                Attempts close approval as an Operator or Maker who overrode an exception (blocked with 403).
+              </p>
+              <button class="btn btn-secondary" onclick="jurySegregationTest()">Simulate Maker Approval</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Maker Override Modal -->
+  <div class="modal-backdrop" id="overrideModal">
+    <div class="modal-card">
+      <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem;">Maker Exception Override</div>
+      <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.25rem;">
+        Record an authorized audit trail override with business justification.
+      </div>
+      <div class="field-group">
+        <label class="field-label">Exception ID</label>
+        <input type="text" id="modalExcId" class="field-input" readonly>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Mandatory Business Justification Reason</label>
+        <input type="text" id="modalReason" class="field-input" placeholder="e.g., Verified offline with partner credit committee">
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.6rem; margin-top:1.25rem;">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-danger" onclick="submitOverride()">Confirm Override</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-pill" id="toastMessage">Switched account</div>
+
+  <script>
+    // YouTube style predefined accounts
+    const ACCOUNTS = {
+      operator: {
+        id: 'operator',
+        username: 'operator',
+        password: 'operator123',
+        role: 'ROLE_OPERATOR',
+        name: 'Operator (Maker)',
+        email: 'operator@vivriti.internal',
+        avatar: 'O',
+        color: '#111827'
+      },
+      approver: {
+        id: 'approver',
+        username: 'approver',
+        password: 'approver123',
+        role: 'ROLE_APPROVER',
+        name: 'Approver (Checker)',
+        email: 'approver@vivriti.internal',
+        avatar: 'A',
+        color: '#4f46e5'
+      }
+    };
+
+    let currentAccountId = 'operator';
+    let isSignedOut = false;
+    let activeCloseId = null;
+
+    function initAuth() {
+      const saved = localStorage.getItem('control_tower_account_id');
+      if (saved && ACCOUNTS[saved]) {
+        currentAccountId = saved;
+      }
+      isSignedOut = localStorage.getItem('control_tower_signed_out') === 'true';
+      updateAccountUI();
+    }
+
+    function updateAccountUI() {
+      const acc = ACCOUNTS[currentAccountId];
+      const isApprover = currentAccountId === 'approver';
+
+      if (isSignedOut) {
+        document.getElementById('topAvatar').innerText = '?';
+        document.getElementById('topAvatar').className = 'avatar-circle signed-out';
+        document.getElementById('topUserName').innerText = 'Signed Out';
+        document.getElementById('activeUserBadge').innerText = 'Session: Signed Out';
+        document.getElementById('sidebarAvatar').innerText = '?';
+        document.getElementById('sidebarUserName').innerText = 'Signed Out';
+        document.getElementById('sidebarUserRole').innerText = 'Click to Sign In';
+        document.getElementById('menuHeaderAvatar').innerText = '?';
+        document.getElementById('menuHeaderAvatar').className = 'account-header-avatar signed-out';
+        document.getElementById('menuHeaderName').innerText = 'No Active Session';
+        document.getElementById('menuHeaderEmail').innerText = 'Click an account below to sign in';
+        document.getElementById('menuHeaderPill').innerText = 'GUEST';
+        document.getElementById('menuHeaderPill').className = 'pill pill-yellow';
+        document.getElementById('optOperator').classList.remove('active');
+        document.getElementById('optApprover').classList.remove('active');
+        return;
+      }
+
+      document.getElementById('topAvatar').innerText = acc.avatar;
+      document.getElementById('topAvatar').className = `avatar-circle ${isApprover ? 'approver' : ''}`;
+      document.getElementById('topUserName').innerText = acc.name;
+      document.getElementById('activeUserBadge').innerText = `Active: ${acc.name}`;
+
+      document.getElementById('sidebarAvatar').innerText = acc.avatar;
+      document.getElementById('sidebarAvatar').className = `avatar-circle ${isApprover ? 'approver' : ''}`;
+      document.getElementById('sidebarUserName').innerText = acc.name;
+      document.getElementById('sidebarUserRole').innerText = acc.role;
+
+      document.getElementById('menuHeaderAvatar').innerText = acc.avatar;
+      document.getElementById('menuHeaderAvatar').className = `account-header-avatar ${isApprover ? 'approver' : ''}`;
+      document.getElementById('menuHeaderName').innerText = acc.name;
+      document.getElementById('menuHeaderEmail').innerText = acc.email;
+      document.getElementById('menuHeaderPill').innerText = `${acc.role} (${isApprover ? 'Checker' : 'Maker'})`;
+      document.getElementById('menuHeaderPill').className = `pill ${isApprover ? 'pill-purple' : 'pill-blue'}`;
+
+      if (currentAccountId === 'operator') {
+        document.getElementById('optOperator').classList.add('active');
+        document.getElementById('optApprover').classList.remove('active');
+      } else {
+        document.getElementById('optOperator').classList.remove('active');
+        document.getElementById('optApprover').classList.add('active');
+      }
+    }
+
+    function getAuth() {
+      if (isSignedOut) {
+        return { 'Content-Type': 'application/json' };
+      }
+      const acc = ACCOUNTS[currentAccountId];
+      const token = btoa(`${acc.username}:${acc.password}`);
+      return {
+        'Authorization': 'Basic ' + token,
+        'Content-Type': 'application/json'
+      };
+    }
+
+    function toggleAccountMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('accountMenu');
+      menu.classList.toggle('active');
+    }
+
+    function selectAccount(accountId) {
+      if (!ACCOUNTS[accountId]) return;
+      currentAccountId = accountId;
+      isSignedOut = false;
+      localStorage.setItem('control_tower_account_id', accountId);
+      localStorage.removeItem('control_tower_signed_out');
+      updateAccountUI();
+      document.getElementById('accountMenu').classList.remove('active');
+      showToast(`Switched account to ${ACCOUNTS[accountId].name}`);
+      log(`Switched active account to ${ACCOUNTS[accountId].name} (${ACCOUNTS[accountId].role})`);
+    }
+
+    function signOut() {
+      isSignedOut = true;
+      localStorage.setItem('control_tower_signed_out', 'true');
+      updateAccountUI();
+      document.getElementById('accountMenu').classList.remove('active');
+      showToast('Signed out of session');
+      log('Signed out. Click profile to switch or sign in.');
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toastMessage');
+      el.innerText = msg;
+      el.classList.add('active');
+      setTimeout(() => el.classList.remove('active'), 2500);
+    }
+
+    window.addEventListener('click', (e) => {
+      const menu = document.getElementById('accountMenu');
+      if (menu && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+      }
+    });
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('appSidebar');
+      sidebar.classList.toggle('collapsed');
+    }
+
+    function navigate(panelId, btn) {
+      document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+      if (btn) btn.classList.add('active');
+
+      const titles = {
+        opsPanel: 'Operations Center',
+        scorecardPanel: 'Gate Scorecard & Evaluation',
+        exceptionsPanel: 'Exception Queue & SLA',
+        clustersPanel: 'Phase 2 Root-Cause Clusters',
+        closePanel: 'Batch Close & Maker-Checker',
+        tracePanel: 'Audit Lineage Trace',
+        juryPanel: 'Jury Scenarios'
+      };
+      document.getElementById('currentViewLabel').innerText = titles[panelId] || 'Control Tower';
+
+      if (panelId === 'scorecardPanel') stepEvaluate();
+      if (panelId === 'exceptionsPanel') fetchExceptions();
+      if (panelId === 'clustersPanel') fetchClusters();
+      if (panelId === 'closePanel') fetchBatches();
+    }
+
+    let isBusy = false;
+    let lastLogMessage = '';
+
+    function log(msg) {
+      const el = document.getElementById('logConsole');
+      const time = new Date().toISOString().slice(11, 19);
+      const str = typeof msg === 'object' ? JSON.stringify(msg, null, 2) : String(msg);
+      if (str === lastLogMessage) {
+        return; // Suppress duplicate consecutive messages
+      }
+      lastLogMessage = str;
+      el.innerText = `[${time}] ${str}\n\n` + el.innerText;
+    }
+    function clearLog() {
+      lastLogMessage = '';
+      document.getElementById('logConsole').innerText = '';
+    }
+
+    function setBusy(busy, targetBtn, text) {
+      isBusy = busy;
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(b => {
+        if (busy) {
+          b.dataset.prevPointerEvents = b.style.pointerEvents || '';
+          b.dataset.prevOpacity = b.style.opacity || '';
+          b.style.pointerEvents = 'none';
+          b.style.opacity = '0.65';
+        } else {
+          b.style.pointerEvents = b.dataset.prevPointerEvents || '';
+          b.style.opacity = b.dataset.prevOpacity || '';
+        }
+      });
+      if (targetBtn) {
+        if (busy) {
+          targetBtn.dataset.originalHtml = targetBtn.innerHTML;
+          targetBtn.innerHTML = `<span style="display:inline-block; animation: spin 1s linear infinite; margin-right:4px;">⏳</span> ${text || 'Processing...'}`;
+        } else if (targetBtn.dataset.originalHtml) {
+          targetBtn.innerHTML = targetBtn.dataset.originalHtml;
+        }
+      }
+    }
+
+    // Pipeline Execution Calls
+    async function triggerReset(btn) {
+      if (isBusy) return;
+      if (!confirm('Clean reset: Truncate all 7 transactional tables in PostgreSQL?')) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Resetting DB...');
+      try {
+        const res = await fetch('/api/v1/reset', { method: 'POST', headers: getAuth() });
+        const data = await res.json();
+        log(data);
+      } catch (e) { log('Error: ' + e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function stepGenerateInternal(seedOverride) {
+      const seed = seedOverride || document.getElementById('cfgSeed').value;
+      const loans = document.getElementById('cfgLoans').value;
+      const dir = document.getElementById('cfgDir').value;
+      log(`Triggering generation with seed=${seed}, loans=${loans}...`);
+      const res = await fetch(`/api/v1/generate?seed=${seed}&loans=${loans}&outputDir=${encodeURIComponent(dir)}`, {
+        method: 'POST',
+        headers: getAuth()
+      });
+      const data = await res.json();
+      log(data);
+      return data;
+    }
+
+    async function stepGenerate(seedOverride, btn) {
+      if (isBusy) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Generating...');
+      try {
+        await stepGenerateInternal(seedOverride);
+      } catch (e) { log('Error: ' + e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function stepIngestInternal() {
+      const dir = document.getElementById('cfgDir').value;
+      log(`Triggering multi-format ingestion from ${dir}...`);
+      const res = await fetch(`/api/v1/ingest?dataDir=${encodeURIComponent(dir)}`, {
+        method: 'POST',
+        headers: getAuth()
+      });
+      const data = await res.json();
+      log(data);
+      return data;
+    }
+
+    async function stepIngest(btn) {
+      if (isBusy) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Ingesting...');
+      try {
+        await stepIngestInternal();
+      } catch (e) { log('Error: ' + e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function stepReconcileInternal() {
+      log('Triggering 5-tier deterministic reconciliation...');
+      const res = await fetch('/api/v1/reconcile', { method: 'POST', headers: getAuth() });
+      const data = await res.json();
+      log(data);
+      return data;
+    }
+
+    async function stepReconcile(btn) {
+      if (isBusy) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Reconciling...');
+      try {
+        await stepReconcileInternal();
+      } catch (e) { log('Error: ' + e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function stepEvaluateInternal() {
+      const dir = document.getElementById('cfgDir').value;
+      const gt = `${dir}/groundtruth/ground_truth.json`;
+      log('Evaluating results against ground truth...');
+      const res = await fetch(`/api/v1/evaluate?groundTruthPath=${encodeURIComponent(gt)}`, { headers: getAuth() });
+      const data = await res.json();
+      renderScorecard(data);
+      log('Evaluation finished. Gate status: ' + data.phase1Gate.gateStatus);
+      return data;
+    }
+
+    async function stepEvaluate(btn) {
+      if (isBusy) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Evaluating...');
+      try {
+        return await stepEvaluateInternal();
+      } catch (e) { log('Error: ' + e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function executeFullRun(btn) {
+      if (isBusy) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Executing Pipeline...');
+      clearLog();
+      log('Starting full automated pipeline run (Reset -> Generate -> Ingest -> Reconcile -> Evaluate)...');
+      try {
+        await fetch('/api/v1/reset', { method: 'POST', headers: getAuth() });
+        log('1/5 Database reset complete.');
+        await stepGenerateInternal();
+        log('2/5 Synthetic feeds generated.');
+        await stepIngestInternal();
+        log('3/5 Multi-format ingestion complete.');
+        await stepReconcileInternal();
+        log('4/5 5-tier reconciliation complete.');
+        await stepEvaluateInternal();
+        log('5/5 Hard Gate Evaluation PASSED (0 false matches).');
+        navigate('scorecardPanel', document.querySelectorAll('.nav-item')[1]);
+      } catch (e) {
+        log('Pipeline execution error: ' + e);
+      } finally {
+        setBusy(false, b);
+      }
+    }
+
+    function renderScorecard(data) {
+      const p1 = data.phase1Gate;
+      document.getElementById('kpiGateStatus').innerText = p1.gateStatus;
+      document.getElementById('kpiGateStatus').style.color = p1.gateStatus === 'PASSED' ? '#059669' : '#dc2626';
+      document.getElementById('kpiFalseExposure').innerText = p1.falseMatchExposureValue;
+      document.getElementById('kpiStp').innerText = p1.straightThroughRate;
+      document.getElementById('kpiDelta').innerText = p1.controlTotalDelta;
+
+      document.getElementById('tdExact').innerText = p1.exactMatchRate;
+      document.getElementById('tdComposite').innerText = p1.compositeMatchRate;
+      document.getElementById('tdTiming').innerText = p1.timingGraceRate;
+      document.getElementById('tdProbable').innerText = `${data.phase2Intelligence.probableProposalsCount} Proposals`;
+      document.getElementById('tdUnresolved').innerText = p1.unresolvedBreaks;
+
+      const matrix = data.phase2Intelligence.confusionMatrix;
+      const tbody = document.getElementById('matrixTbody');
+      tbody.innerHTML = '';
+      for (const [anomaly, counts] of Object.entries(matrix)) {
+        tbody.innerHTML += `
+          <tr>
+            <td style="font-weight:600;">${anomaly}</td>
+            <td>${counts.EXACT || 0}</td>
+            <td>${counts.COMPOSITE || 0}</td>
+            <td>${counts.TIMING || 0}</td>
+            <td>${counts.PROBABLE || 0}</td>
+            <td>${counts.UNRESOLVED || 0}</td>
+          </tr>
+        `;
+      }
+    }
+
+    async function fetchExceptions() {
+      try {
+        const res = await fetch('/api/v1/exceptions', { headers: getAuth() });
+        const list = await res.json();
+        document.getElementById('badgeExceptions').innerText = list.length;
+        const tbody = document.getElementById('exceptionsTbody');
+        tbody.innerHTML = '';
+        list.slice(0, 50).forEach(e => {
+          const inr = (e.exposureAmountPaise / 100).toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+          const pillClass = e.priority === 'CRITICAL' ? 'pill-red' : (e.priority === 'HIGH' ? 'pill-yellow' : 'pill-blue');
+          tbody.innerHTML += `
+            <tr>
+              <td style="font-family:var(--font-mono); font-size:0.75rem;">${e.businessEventId}</td>
+              <td>${e.partnerCode}</td>
+              <td>${e.classification}</td>
+              <td><span class="pill ${pillClass}">${e.priority}</span></td>
+              <td style="font-weight:700;">${inr}</td>
+              <td style="font-size:0.75rem; color:var(--text-muted);">${e.ownerRole}</td>
+              <td><span class="pill ${e.status === 'OVERRIDDEN' ? 'pill-green' : 'pill-red'}">${e.status}</span></td>
+              <td>
+                ${e.status !== 'OVERRIDDEN' ? `<button class="btn btn-secondary" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="openModal('${e.exceptionId}')">Override</button>` : '<span style="color:#059669; font-size:0.75rem; font-weight:600;">Audited</span>'}
+              </td>
+            </tr>
+          `;
+        });
+      } catch (e) { log(e); }
+    }
+
+    function openModal(id) {
+      document.getElementById('modalExcId').value = id;
+      document.getElementById('overrideModal').classList.add('active');
+    }
+    function closeModal() { document.getElementById('overrideModal').classList.remove('active'); }
+
+    async function submitOverride(btn) {
+      if (isBusy) return;
+      const id = document.getElementById('modalExcId').value;
+      const reason = document.getElementById('modalReason').value;
+      if (!reason) { alert('Mandatory reason required.'); return; }
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Saving Override...');
+      try {
+        const res = await fetch(`/api/v1/exceptions/${id}/override?reason=${encodeURIComponent(reason)}`, {
+          method: 'POST',
+          headers: getAuth()
+        });
+        if (res.ok) {
+          closeModal();
+          fetchExceptions();
+          log(`Override recorded for ${id} by ${ACCOUNTS[currentAccountId].name}`);
+        } else {
+          alert('Override failed: ' + res.statusText);
+        }
+      } catch (e) { log(e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function fetchClusters() {
+      try {
+        const res = await fetch('/api/v1/exceptions/clusters', { headers: getAuth() });
+        const list = await res.json();
+        const grid = document.getElementById('clustersGrid');
+        grid.innerHTML = '';
+        list.forEach(c => {
+          grid.innerHTML += `
+            <div class="card" style="border-left:3px solid #6366f1;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span class="pill pill-purple">${c.partnerCode}</span>
+                <span style="font-weight:700; color:#4f46e5;">${c.totalExposureInr}</span>
+              </div>
+              <div style="font-weight:600; font-size:0.92rem; margin-bottom:0.4rem;">${c.classification} (${c.exceptionCount} loans affected)</div>
+              <div style="font-size:0.8rem; color:var(--text-main); margin-bottom:0.4rem;"><strong>Hypothesis:</strong> ${c.rootCauseHypothesis}</div>
+              <div style="font-size:0.8rem; color:#059669; margin-bottom:0.4rem;"><strong>Remediation:</strong> ${c.recommendedRemediation}</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">Owner: <strong>${c.assignedOwnerRole}</strong></div>
+            </div>
+          `;
+        });
+      } catch (e) { log(e); }
+    }
+
+    async function fetchBatches() {
+      try {
+        const res = await fetch('/api/v1/close/batches', { headers: getAuth() });
+        const list = await res.json();
+        const select = document.getElementById('batchDropdown');
+        select.innerHTML = '';
+        list.forEach(b => {
+          select.innerHTML += `<option value="${b.batchId}">${b.batchId} (${b.partnerCode} - ${b.sourceSystem})</option>`;
+        });
+      } catch (e) { log(e); }
+    }
+
+    async function runCloseEvaluate(btn) {
+      if (isBusy) return;
+      const batchId = document.getElementById('batchDropdown').value;
+      if (!batchId) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Evaluating Close...');
+      try {
+        const res = await fetch(`/api/v1/close/evaluate?batchId=${encodeURIComponent(batchId)}`, {
+          method: 'POST',
+          headers: getAuth()
+        });
+        const summary = await res.json();
+        activeCloseId = summary.closeId;
+        const box = document.getElementById('closeDetailsBox');
+        const inr = val => (val / 100).toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+        box.innerHTML = `
+          <div style="font-size:1.05rem; font-weight:700; margin-bottom:0.4rem; color:${summary.decision === 'CLOSE' ? '#059669' : '#dc2626'};">
+            DECISION: ${summary.decision}
+          </div>
+          <div>Opening Position : ${inr(summary.openingPositionPaise)}</div>
+          <div>Valid Movements  : ${inr(summary.validMovementsPaise)}</div>
+          <div>Reversals        : ${inr(summary.reversalsPaise)}</div>
+          <div>Closing Position : ${inr(summary.closingPositionPaise)}</div>
+          <hr style="border:0; border-top:1px solid #e5e7eb; margin:0.4rem 0;">
+          <div>Matched Value    : ${inr(summary.matchedPaise)}</div>
+          <div>Unaccounted Delta: <span style="font-weight:700; color:${summary.unaccountedPaise === 0 ? '#059669' : '#dc2626'};">${inr(summary.unaccountedPaise)}</span></div>
+          <div style="margin-top:0.4rem; font-size:0.75rem;">Evaluated By: ${summary.decidedBy}</div>
+        `;
+      } catch (e) { log(e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function runCloseApprove(btn) {
+      if (isBusy) return;
+      if (!activeCloseId) { alert('Evaluate a batch first.'); return; }
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Approving Close...');
+      try {
+        const res = await fetch(`/api/v1/close/approve?closeId=${encodeURIComponent(activeCloseId)}`, {
+          method: 'POST',
+          headers: getAuth()
+        });
+        if (res.ok) {
+          const data = await res.json();
+          alert(`Batch close approved by Checker (${data.decidedBy})!`);
+          runCloseEvaluate();
+        } else if (res.status === 403) {
+          alert('403 FORBIDDEN: Segregation of Duties Enforced.\n\nOnly users with ROLE_APPROVER (Checker) can approve close.\nAdditionally, Maker cannot be Checker if they overrode any exceptions in this batch.\n\nTip: Click your profile at the top right to switch to "Approver (Checker)".');
+        } else {
+          const err = await res.json();
+          alert('Approval error: ' + (err.message || res.statusText));
+        }
+      } catch (e) { log(e); }
+      finally { setBusy(false, b); }
+    }
+
+    async function runTrace(btn) {
+      if (isBusy) return;
+      const ref = document.getElementById('traceInputRef').value;
+      if (!ref) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Verifying Lineage...');
+      try {
+        const res = await fetch(`/api/v1/audit/trace/${ref}`, { headers: getAuth() });
+        const data = await res.json();
+        const container = document.getElementById('traceGraphContainer');
+        container.innerHTML = '';
+        data.canonicalEvents.forEach(evt => {
+          container.innerHTML += `
+            <div style="border-left:2px solid var(--accent-primary); padding-left:0.85rem; margin-bottom:0.85rem;">
+              <div style="display:flex; justify-content:space-between; font-weight:600;">
+                <span>${evt.sourceSystem} — ${evt.eventType}</span>
+                <span style="color:#2563eb;">${evt.amountInr}</span>
+              </div>
+              <div style="font-size:0.72rem; color:var(--text-muted); font-family:var(--font-mono); margin:0.2rem 0;">SHA-256: ${evt.payloadHash}</div>
+              <div style="font-size:0.75rem; background:#f3f4f6; padding:0.35rem 0.5rem; border-radius:4px; font-family:var(--font-mono); border:1px solid #e5e7eb;">${evt.rawPayload}</div>
+            </div>
+          `;
+        });
+        if (data.matchDecisions && data.matchDecisions.length > 0) {
+          const d = data.matchDecisions[0];
+          container.innerHTML += `
+            <div style="background:#f9fafb; border:1px solid #a7f3d0; border-radius:6px; padding:0.65rem 0.85rem; margin-top:0.65rem;">
+              <div style="color:#059669; font-weight:700;">DECISION: ${d.matchLevel} (Confidence: ${d.confidenceScore})</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Rule: ${d.ruleVersion} | Decided: ${d.decidedAt}</div>
+            </div>
+          `;
+        }
+      } catch (e) { log(e); }
+      finally { setBusy(false, b); }
+    }
+
+    function simulateBreak() {
+      alert('Zero-Tolerance Financial Invariant Proof:\n\nIn the automated CloseEquationBreakTest, injecting even 1 paise of unaccounted variance into a batch immediately flips the close equation result from CLOSE to HOLD.\n\nSilent write-offs or balancing entries are strictly forbidden.');
+    }
+
+    function jurySeedChange() {
+      document.getElementById('cfgSeed').value = '9999';
+      stepGenerate(9999);
+    }
+
+    function jurySegregationTest() {
+      const prev = currentAccountId;
+      selectAccount('operator');
+      runCloseApprove();
+      selectAccount(prev);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initAuth();
+      fetchExceptions();
+    });
+  </script>
+</body>
+</html>

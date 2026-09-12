@@ -1,0 +1,158 @@
+{
+  "batchId" : "B-PARTNER_ALPHA-LMS-20240116",
+  "businessDate" : "2024-01-16",
+  "declaredAmountPaise" : 7552120,
+  "declaredCount" : 15,
+  "partnerCode" : "PARTNER_ALPHA",
+  "records" : [ {
+    "amountPaise" : 161403,
+    "businessEventId" : "EVT-LOAN-000011",
+    "correlationId" : "CORR-LOAN-000011",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000011",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T10:16Z",
+    "utrReference" : "UTR-LOAN-000011-744"
+  }, {
+    "amountPaise" : 594031,
+    "businessEventId" : "EVT-LOAN-000015",
+    "correlationId" : "CORR-LOAN-000015",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000015",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T13:12Z",
+    "utrReference" : "UTR-LOAN-000015-679"
+  }, {
+    "amountPaise" : 384193,
+    "businessEventId" : "EVT-LOAN-000032",
+    "correlationId" : "CORR-LOAN-000032",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000032",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T16:14Z",
+    "utrReference" : "UTR-LOAN-000032-95"
+  }, {
+    "amountPaise" : 396510,
+    "businessEventId" : "EVT-LOAN-000035",
+    "correlationId" : "CORR-LOAN-000035",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000035",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T12:09Z",
+    "utrReference" : "UTR-LOAN-000035-842"
+  }, {
+    "amountPaise" : 593241,
+    "businessEventId" : "EVT-LOAN-000038",
+    "correlationId" : "CORR-LOAN-000038",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000038",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T15:41Z",
+    "utrReference" : "UTR-LOAN-000038-666"
+  }, {
+    "amountPaise" : 950494,
+    "businessEventId" : "EVT-LOAN-000041",
+    "correlationId" : "CORR-LOAN-000041",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000041",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T12:37Z",
+    "utrReference" : "UTR-LOAN-000041-781"
+  }, {
+    "amountPaise" : 535990,
+    "businessEventId" : "EVT-LOAN-000062",
+    "correlationId" : "CORR-LOAN-000062",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000062",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T12:47Z",
+    "utrReference" : "UTR-LOAN-000062-721"
+  }, {
+    "amountPaise" : 124725,
+    "businessEventId" : "EVT-LOAN-000066",
+    "correlationId" : "CORR-LOAN-000066",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000066",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T18:38Z",
+    "utrReference" : "UTR-LOAN-000066-898"
+  }, {
+    "amountPaise" : 544518,
+    "businessEventId" : "EVT-LOAN-000070",
+    "correlationId" : "CORR-LOAN-000070",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000070",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T14:45Z",
+    "utrReference" : "UTR-LOAN-000070-967"
+  }, {
+    "amountPaise" : 256973,
+    "businessEventId" : "EVT-LOAN-000078",
+    "correlationId" : "CORR-LOAN-000078",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000078",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T18:01Z",
+    "utrReference" : "UTR-LOAN-000078-262"
+  }, {
+    "amountPaise" : 910078,
+    "businessEventId" : "EVT-LOAN-000080",
+    "correlationId" : "CORR-LOAN-000080",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000080",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T14:33Z",
+    "utrReference" : "UTR-LOAN-000080-568"
+  }, {
+    "amountPaise" : 779372,
+    "businessEventId" : "EVT-LOAN-000082",
+    "correlationId" : "CORR-LOAN-000082",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000082",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T17:28Z",
+    "utrReference" : "UTR-LOAN-000082-207"
+  }, {
+    "amountPaise" : 642221,
+    "businessEventId" : "EVT-LOAN-000083",
+    "correlationId" : "CORR-LOAN-000083",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000083",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T17:59Z",
+    "utrReference" : "UTR-LOAN-000083-729"
+  }, {
+    "amountPaise" : 191628,
+    "businessEventId" : "EVT-LOAN-000093",
+    "correlationId" : "CORR-LOAN-000093",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000093",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T14:05Z",
+    "utrReference" : "UTR-LOAN-000093-980"
+  }, {
+    "amountPaise" : 486743,
+    "businessEventId" : "EVT-LOAN-000100",
+    "correlationId" : "CORR-LOAN-000100",
+    "eventType" : "LMS_BOOKING",
+    "loanReference" : "LOAN-000100",
+    "sourceSystem" : "LMS",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T18:17Z",
+    "utrReference" : "UTR-LOAN-000100-946"
+  } ]
+}

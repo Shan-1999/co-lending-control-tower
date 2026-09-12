@@ -1,0 +1,901 @@
+[ {
+  "allLegsPresent" : true,
+  "anomalyType" : "TIMING_DIFFERENCE",
+  "bankAmountPaise" : 311248,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "TIMING",
+  "lmsAmountPaise" : 311248,
+  "loanReference" : "LOAN-000001",
+  "originatorAmountPaise" : 311248
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 577182,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 577182,
+  "loanReference" : "LOAN-000002",
+  "originatorAmountPaise" : 577182
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 168743,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 168743,
+  "loanReference" : "LOAN-000003",
+  "originatorAmountPaise" : 168743
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 446030,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 446030,
+  "loanReference" : "LOAN-000004",
+  "originatorAmountPaise" : 446030
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 848217,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 848217,
+  "loanReference" : "LOAN-000005",
+  "originatorAmountPaise" : 848217
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "COMPOSITE_SPLIT",
+  "bankAmountPaise" : 599823,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "COMPOSITE",
+  "lmsAmountPaise" : 599823,
+  "loanReference" : "LOAN-000006",
+  "originatorAmountPaise" : 599823
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 127193,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 127193,
+  "loanReference" : "LOAN-000007",
+  "originatorAmountPaise" : 127193
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 328261,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 328261,
+  "loanReference" : "LOAN-000008",
+  "originatorAmountPaise" : 328261
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 792798,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 792798,
+  "loanReference" : "LOAN-000009",
+  "originatorAmountPaise" : 792798
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 227573,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 227573,
+  "loanReference" : "LOAN-000010",
+  "originatorAmountPaise" : 227573
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 161403,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 161403,
+  "loanReference" : "LOAN-000011",
+  "originatorAmountPaise" : 161403
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 523747,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 523747,
+  "loanReference" : "LOAN-000012",
+  "originatorAmountPaise" : 523747
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 145476,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 145476,
+  "loanReference" : "LOAN-000013",
+  "originatorAmountPaise" : 145476
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 462709,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 462709,
+  "loanReference" : "LOAN-000014",
+  "originatorAmountPaise" : 462709
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 594031,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 594031,
+  "loanReference" : "LOAN-000015",
+  "originatorAmountPaise" : 594031
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 134958,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 134958,
+  "loanReference" : "LOAN-000016",
+  "originatorAmountPaise" : 134958
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 742352,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 742352,
+  "loanReference" : "LOAN-000017",
+  "originatorAmountPaise" : 742352
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 336627,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 336627,
+  "loanReference" : "LOAN-000018",
+  "originatorAmountPaise" : 336627
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 546778,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 546778,
+  "loanReference" : "LOAN-000019",
+  "originatorAmountPaise" : 546778
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 745481,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 745481,
+  "loanReference" : "LOAN-000020",
+  "originatorAmountPaise" : 745481
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 892740,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 892740,
+  "loanReference" : "LOAN-000021",
+  "originatorAmountPaise" : 892740
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 366324,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 366324,
+  "loanReference" : "LOAN-000022",
+  "originatorAmountPaise" : 366324
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 960929,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 960929,
+  "loanReference" : "LOAN-000023",
+  "originatorAmountPaise" : 960929
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 104536,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 104536,
+  "loanReference" : "LOAN-000024",
+  "originatorAmountPaise" : 104536
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 801766,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 801766,
+  "loanReference" : "LOAN-000025",
+  "originatorAmountPaise" : 801766
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 580378,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 580378,
+  "loanReference" : "LOAN-000026",
+  "originatorAmountPaise" : 580378
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 790150,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 790150,
+  "loanReference" : "LOAN-000027",
+  "originatorAmountPaise" : 790150
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 297183,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 297183,
+  "loanReference" : "LOAN-000028",
+  "originatorAmountPaise" : 297183
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "AMOUNT_MISMATCH",
+  "bankAmountPaise" : 903416,
+  "expectedExceptionClassification" : "AMOUNT_MISMATCH",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : 893416,
+  "loanReference" : "LOAN-000029",
+  "originatorAmountPaise" : 903416
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 356266,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 356266,
+  "loanReference" : "LOAN-000030",
+  "originatorAmountPaise" : 356266
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 556431,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 556431,
+  "loanReference" : "LOAN-000031",
+  "originatorAmountPaise" : 556431
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 384193,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 384193,
+  "loanReference" : "LOAN-000032",
+  "originatorAmountPaise" : 384193
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 974815,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 974815,
+  "loanReference" : "LOAN-000033",
+  "originatorAmountPaise" : 974815
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 529065,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 529065,
+  "loanReference" : "LOAN-000034",
+  "originatorAmountPaise" : 529065
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 396510,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 396510,
+  "loanReference" : "LOAN-000035",
+  "originatorAmountPaise" : 396510
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 680452,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 680452,
+  "loanReference" : "LOAN-000036",
+  "originatorAmountPaise" : 680452
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 197440,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 197440,
+  "loanReference" : "LOAN-000037",
+  "originatorAmountPaise" : 197440
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "DUPLICATE_BANK_EVENT",
+  "bankAmountPaise" : 593241,
+  "expectedExceptionClassification" : "DUPLICATE_BANK_EVENT",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : 593241,
+  "loanReference" : "LOAN-000038",
+  "originatorAmountPaise" : 593241
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 385913,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 385913,
+  "loanReference" : "LOAN-000039",
+  "originatorAmountPaise" : 385913
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 399243,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 399243,
+  "loanReference" : "LOAN-000040",
+  "originatorAmountPaise" : 399243
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 950494,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 950494,
+  "loanReference" : "LOAN-000041",
+  "originatorAmountPaise" : 950494
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "BATCH_TOTAL_MISMATCH",
+  "bankAmountPaise" : 541248,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 541248,
+  "loanReference" : "LOAN-000042",
+  "originatorAmountPaise" : 541248
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "AMOUNT_MISMATCH",
+  "bankAmountPaise" : 920771,
+  "expectedExceptionClassification" : "AMOUNT_MISMATCH",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : 910771,
+  "loanReference" : "LOAN-000043",
+  "originatorAmountPaise" : 920771
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 738842,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 738842,
+  "loanReference" : "LOAN-000044",
+  "originatorAmountPaise" : 738842
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 512860,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 512860,
+  "loanReference" : "LOAN-000045",
+  "originatorAmountPaise" : 512860
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 431680,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 431680,
+  "loanReference" : "LOAN-000046",
+  "originatorAmountPaise" : 431680
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 960895,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 960895,
+  "loanReference" : "LOAN-000047",
+  "originatorAmountPaise" : 960895
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 582165,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 582165,
+  "loanReference" : "LOAN-000048",
+  "originatorAmountPaise" : 582165
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 100992,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 100992,
+  "loanReference" : "LOAN-000049",
+  "originatorAmountPaise" : 100992
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 325055,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 325055,
+  "loanReference" : "LOAN-000050",
+  "originatorAmountPaise" : 325055
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 663347,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 663347,
+  "loanReference" : "LOAN-000051",
+  "originatorAmountPaise" : 663347
+}, {
+  "allLegsPresent" : false,
+  "anomalyType" : "ORPHAN_REVERSAL",
+  "bankAmountPaise" : 338720,
+  "expectedExceptionClassification" : "ORPHAN_REVERSAL",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : null,
+  "loanReference" : "LOAN-000052",
+  "originatorAmountPaise" : 0
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 433613,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 433613,
+  "loanReference" : "LOAN-000053",
+  "originatorAmountPaise" : 433613
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 816447,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 816447,
+  "loanReference" : "LOAN-000054",
+  "originatorAmountPaise" : 816447
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 662786,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 662786,
+  "loanReference" : "LOAN-000055",
+  "originatorAmountPaise" : 662786
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "SCHEMA_BREACH",
+  "bankAmountPaise" : 303391,
+  "expectedExceptionClassification" : "SCHEMA_BREACH",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : 303391,
+  "loanReference" : "LOAN-000056",
+  "originatorAmountPaise" : -303391
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 212230,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 212230,
+  "loanReference" : "LOAN-000057",
+  "originatorAmountPaise" : 212230
+}, {
+  "allLegsPresent" : false,
+  "anomalyType" : "MISSING_LMS_LEG",
+  "bankAmountPaise" : 837638,
+  "expectedExceptionClassification" : "MISSING_LMS_LEG",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : null,
+  "loanReference" : "LOAN-000058",
+  "originatorAmountPaise" : 837638
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 238543,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 238543,
+  "loanReference" : "LOAN-000059",
+  "originatorAmountPaise" : 238543
+}, {
+  "allLegsPresent" : false,
+  "anomalyType" : "MISSING_BANK_LEG",
+  "bankAmountPaise" : null,
+  "expectedExceptionClassification" : "MISSING_BANK_LEG",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : 502806,
+  "loanReference" : "LOAN-000060",
+  "originatorAmountPaise" : 502806
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 928465,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 928465,
+  "loanReference" : "LOAN-000061",
+  "originatorAmountPaise" : 928465
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 535990,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 535990,
+  "loanReference" : "LOAN-000062",
+  "originatorAmountPaise" : 535990
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 814016,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 814016,
+  "loanReference" : "LOAN-000063",
+  "originatorAmountPaise" : 814016
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 876778,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 876778,
+  "loanReference" : "LOAN-000064",
+  "originatorAmountPaise" : 876778
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 772721,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 772721,
+  "loanReference" : "LOAN-000065",
+  "originatorAmountPaise" : 772721
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 124725,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 124725,
+  "loanReference" : "LOAN-000066",
+  "originatorAmountPaise" : 124725
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 744664,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 744664,
+  "loanReference" : "LOAN-000067",
+  "originatorAmountPaise" : 744664
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 749213,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 749213,
+  "loanReference" : "LOAN-000068",
+  "originatorAmountPaise" : 749213
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 269674,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 269674,
+  "loanReference" : "LOAN-000069",
+  "originatorAmountPaise" : 269674
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 544518,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 544518,
+  "loanReference" : "LOAN-000070",
+  "originatorAmountPaise" : 544518
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 483611,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 483611,
+  "loanReference" : "LOAN-000071",
+  "originatorAmountPaise" : 483611
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 748564,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 748564,
+  "loanReference" : "LOAN-000072",
+  "originatorAmountPaise" : 748564
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 196863,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 196863,
+  "loanReference" : "LOAN-000073",
+  "originatorAmountPaise" : 196863
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 410956,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 410956,
+  "loanReference" : "LOAN-000074",
+  "originatorAmountPaise" : 410956
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 290572,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 290572,
+  "loanReference" : "LOAN-000075",
+  "originatorAmountPaise" : 290572
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 585043,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 585043,
+  "loanReference" : "LOAN-000076",
+  "originatorAmountPaise" : 585043
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 262806,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 262806,
+  "loanReference" : "LOAN-000077",
+  "originatorAmountPaise" : 262806
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 256973,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 256973,
+  "loanReference" : "LOAN-000078",
+  "originatorAmountPaise" : 256973
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 365553,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 365553,
+  "loanReference" : "LOAN-000079",
+  "originatorAmountPaise" : 365553
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 910078,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 910078,
+  "loanReference" : "LOAN-000080",
+  "originatorAmountPaise" : 910078
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 804690,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 804690,
+  "loanReference" : "LOAN-000081",
+  "originatorAmountPaise" : 804690
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 779372,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 779372,
+  "loanReference" : "LOAN-000082",
+  "originatorAmountPaise" : 779372
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 642221,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 642221,
+  "loanReference" : "LOAN-000083",
+  "originatorAmountPaise" : 642221
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 885370,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 885370,
+  "loanReference" : "LOAN-000084",
+  "originatorAmountPaise" : 885370
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 809111,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 809111,
+  "loanReference" : "LOAN-000085",
+  "originatorAmountPaise" : 809111
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 929389,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 929389,
+  "loanReference" : "LOAN-000086",
+  "originatorAmountPaise" : 929389
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 409828,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 409828,
+  "loanReference" : "LOAN-000087",
+  "originatorAmountPaise" : 409828
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 463113,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 463113,
+  "loanReference" : "LOAN-000088",
+  "originatorAmountPaise" : 463113
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 354281,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 354281,
+  "loanReference" : "LOAN-000089",
+  "originatorAmountPaise" : 354281
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 389107,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 389107,
+  "loanReference" : "LOAN-000090",
+  "originatorAmountPaise" : 389107
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 756442,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 756442,
+  "loanReference" : "LOAN-000091",
+  "originatorAmountPaise" : 756442
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 112304,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 112304,
+  "loanReference" : "LOAN-000092",
+  "originatorAmountPaise" : 112304
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 191628,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 191628,
+  "loanReference" : "LOAN-000093",
+  "originatorAmountPaise" : 191628
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 928388,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 928388,
+  "loanReference" : "LOAN-000094",
+  "originatorAmountPaise" : 928388
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 477203,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 477203,
+  "loanReference" : "LOAN-000095",
+  "originatorAmountPaise" : 477203
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 756212,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 756212,
+  "loanReference" : "LOAN-000096",
+  "originatorAmountPaise" : 756212
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 579684,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 579684,
+  "loanReference" : "LOAN-000097",
+  "originatorAmountPaise" : 579684
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 678467,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 678467,
+  "loanReference" : "LOAN-000098",
+  "originatorAmountPaise" : 678467
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : null,
+  "bankAmountPaise" : 769299,
+  "expectedExceptionClassification" : null,
+  "expectedMatchLevel" : "EXACT",
+  "lmsAmountPaise" : 769299,
+  "loanReference" : "LOAN-000099",
+  "originatorAmountPaise" : 769299
+}, {
+  "allLegsPresent" : true,
+  "anomalyType" : "STATUS_MISMATCH",
+  "bankAmountPaise" : 486743,
+  "expectedExceptionClassification" : "STATUS_MISMATCH",
+  "expectedMatchLevel" : "UNRESOLVED",
+  "lmsAmountPaise" : 486743,
+  "loanReference" : "LOAN-000100",
+  "originatorAmountPaise" : 486743
+} ]

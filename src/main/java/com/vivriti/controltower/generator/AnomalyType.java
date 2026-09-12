@@ -1,0 +1,14 @@
+package com.vivriti.controltower.generator;
+
+public enum AnomalyType {
+    MISSING_BANK_LEG,
+    MISSING_LMS_LEG,
+    DUPLICATE_BANK_EVENT,
+    AMOUNT_MISMATCH,
+    STATUS_MISMATCH,
+    TIMING_DIFFERENCE,
+    COMPOSITE_SPLIT,
+    ORPHAN_REVERSAL,
+    SCHEMA_BREACH,
+    BATCH_TOTAL_MISMATCH
+}
