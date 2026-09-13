@@ -43,3 +43,6 @@ data/seed_9999/
 data/seed_clean/
 data/seed_demo/
 data/seed_eval/
+
+# Distribution archives
+*.zip
