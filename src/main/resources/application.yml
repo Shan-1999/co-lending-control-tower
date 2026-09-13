@@ -75,7 +75,7 @@ info:
 controltower:
   generator:
     seed: 42
-    loan-count: 1000
+    loan-count: 2000
     business-days: 3
     cutoff-hour: 18
     cutoff-zone: UTC
