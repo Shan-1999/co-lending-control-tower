@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: ${TEST_DB_URL:jdbc:postgresql://localhost:5432/controltower_test}
-    username: ${TEST_DB_USER:postgres}
-    password: ${TEST_DB_PASSWORD:password}
-    driver-class-name: org.postgresql.Driver
+    url: ${TEST_DB_URL:jdbc:h2:mem:controltower_test;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
+    username: ${TEST_DB_USER:sa}
+    password: ${TEST_DB_PASSWORD:}
+    driver-class-name: ${TEST_DB_DRIVER:org.h2.Driver}
 
   jpa:
     hibernate:
@@ -11,11 +11,11 @@ spring:
     open-in-view: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
 
   flyway:
     enabled: true
-    locations: classpath:db/migration
+    locations: classpath:db/migration_h2
     clean-disabled: false
     baseline-on-migrate: true
 
