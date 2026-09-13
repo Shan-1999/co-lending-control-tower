@@ -8,3 +8,4 @@ curl.exe -s -u operator:operator123 -X GET "http://localhost:8080/api/v1/evaluat
 echo.
 echo 2. When grace window is reduced to 2h, late bank settlements are flagged as breaks.
 echo Timing reconciliation logic dynamically adheres to controltower.reconciliation.grace-window-hours.
+

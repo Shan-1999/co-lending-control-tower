@@ -15,3 +15,4 @@ curl.exe -s -u operator:operator123 -X GET "http://localhost:8080/api/v1/evaluat
 
 echo.
 echo SUCCESS: Anomaly distribution verified with 0 false matches!
+
