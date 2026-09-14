@@ -1708,7 +1708,7 @@
       document.getElementById('kpiStp').innerText = p1.straightThroughRate;
       document.getElementById('kpiStp').style.color = '#2563eb';
       document.getElementById('kpiDelta').innerText = p1.controlTotalDelta;
-      document.getElementById('kpiDelta').style.color = p1.controlTotalDelta === '₹0.00' ? '#059669' : '#dc2626';
+      document.getElementById('kpiDelta').style.color = (p1.controlTotalDelta && p1.controlTotalDelta.includes('0.00')) ? '#059669' : '#dc2626';
 
       document.getElementById('tdExact').innerText = p1.exactMatchRate;
       document.getElementById('tdComposite').innerText = p1.compositeMatchRate;
