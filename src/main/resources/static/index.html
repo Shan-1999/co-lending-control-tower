@@ -292,64 +292,70 @@
       background: var(--accent-green);
     }
 
-    /* YouTube Style Profile Avatar Trigger */
-    .profile-pill-trigger {
+    /* YouTube / Netflix Style Profile Avatar Trigger */
+    .profile-avatar-trigger {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       background: #ffffff;
       border: 1px solid var(--border);
-      padding: 0.25rem 0.6rem 0.25rem 0.35rem;
-      border-radius: 20px;
+      padding: 0.25rem 0.65rem 0.25rem 0.35rem;
+      border-radius: 24px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
       user-select: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
-    .profile-pill-trigger:hover {
-      border-color: var(--border-dark);
-      background: #f9fafb;
+    .profile-avatar-trigger:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
     }
     .avatar-circle {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--accent-primary);
+      background: #0284c7; /* Vibrant Blue matching screenshot */
       color: #ffffff;
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: inset 0 -1px 2px rgba(0,0,0,0.2);
     }
     .avatar-circle.approver {
-      background: #4f46e5;
+      background: #6366f1; /* Royal Purple / Indigo */
     }
     .avatar-circle.signed-out {
       background: #9ca3af;
     }
     .profile-label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-main);
     }
-    .profile-chevron {
-      font-size: 0.65rem;
-      color: var(--text-muted);
+    .profile-chevron-svg {
+      color: #64748b;
+      transition: transform 0.2s ease;
+    }
+    .profile-avatar-trigger:hover .profile-chevron-svg {
+      color: #0f172a;
     }
 
-    /* YouTube-style Account Switcher Dropdown */
+    /* Netflix / Crunchyroll / YouTube Style Account Switcher Dropdown */
     .account-switcher-dropdown {
       position: absolute;
-      top: 56px;
+      top: 58px;
       right: 24px;
-      width: 320px;
+      width: 440px;
       background: #ffffff;
-      border: 1px solid var(--border-dark);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
       z-index: 1000;
       display: none;
-      animation: fadeIn 0.15s ease-out;
+      animation: fadeIn 0.18s ease-out;
       overflow: hidden;
     }
     .account-switcher-dropdown.active {
@@ -357,117 +363,170 @@
     }
 
     .account-header {
-      padding: 1rem 1.15rem;
+      padding: 1.1rem 1.25rem;
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      background: #fdfdfd;
-      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      border-bottom: 1px solid #e2e8f0;
     }
     .account-header-avatar {
-      width: 40px;
-      height: 40px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: var(--accent-primary);
+      background: #0284c7;
       color: #ffffff;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+      border: 2px solid #ffffff;
     }
     .account-header-avatar.approver {
-      background: #4f46e5;
+      background: #6366f1;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
     }
     .account-header-avatar.signed-out {
       background: #9ca3af;
+      box-shadow: none;
     }
     .account-header-info {
       flex: 1;
       overflow: hidden;
     }
     .account-header-name {
-      font-size: 0.88rem;
+      font-size: 0.96rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: #0f172a;
     }
     .account-header-email {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      font-size: 0.76rem;
+      color: #64748b;
       margin-top: 1px;
     }
 
-    .account-section-title {
-      padding: 0.75rem 1.15rem 0.35rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    /* Informative Role Banner next to accounts */
+    .account-role-banner {
+      margin: 0.75rem 1.15rem 0.5rem;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.74rem;
+      color: #166534;
+      line-height: 1.4;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
     }
 
-    .account-option {
-      padding: 0.75rem 1.15rem;
+    .account-section-title {
+      padding: 0.6rem 1.25rem 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .profile-card-item {
+      margin: 0.4rem 1.15rem 0.6rem;
+      padding: 0.85rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .profile-card-item:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+    .profile-card-item.active {
+      border-color: #2563eb;
+      background: #f0f7ff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    }
+    .profile-card-header {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      cursor: pointer;
-      transition: background 0.15s;
+      justify-content: space-between;
     }
-    .account-option:hover {
-      background: #f3f4f6;
+    .profile-card-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .account-option.active {
-      background: #f9fafb;
-    }
-    .account-option-avatar {
-      width: 32px;
-      height: 32px;
+    .profile-card-avatar {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       color: #ffffff;
-      font-size: 0.8rem;
+      font-size: 0.88rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .account-option-details {
-      flex: 1;
-    }
-    .account-option-title {
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-    .account-option-sub {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
-    .account-check-icon {
-      font-size: 0.95rem;
+    .profile-card-title {
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--accent-blue);
+      color: #0f172a;
+    }
+    .profile-card-role-tag {
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      color: #64748b;
+    }
+    .profile-card-desc {
+      font-size: 0.73rem;
+      color: #475569;
+      line-height: 1.35;
+      padding-left: 2.85rem;
+    }
+    .profile-card-restriction {
+      font-size: 0.7rem;
+      color: #b91c1c;
+      background: #fef2f2;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 2.85rem;
+      font-weight: 500;
+    }
+    .profile-card-check {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      background: #dbeafe;
+      color: #1d4ed8;
       display: none;
     }
-    .account-option.active .account-check-icon {
-      display: block;
+    .profile-card-item.active .profile-card-check {
+      display: inline-block;
     }
 
     .account-footer-action {
-      padding: 0.75rem 1.15rem;
+      padding: 0.75rem 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
       cursor: pointer;
-      border-top: 1px solid var(--border);
-      font-size: 0.84rem;
-      font-weight: 500;
-      color: var(--text-main);
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #dc2626;
+      background: #ffffff;
       transition: background 0.15s;
     }
     .account-footer-action:hover {
-      background: #f3f4f6;
+      background: #fef2f2;
     }
 
     /* Toast Notification */
@@ -806,52 +865,83 @@
           <span id="activeUserBadge">Active: Operator (Maker)</span>
         </div>
 
-        <!-- YouTube Style Profile Avatar Trigger -->
-        <div class="profile-pill-trigger" onclick="toggleAccountMenu(event)">
+        <!-- YouTube / Netflix Style Profile Avatar Trigger -->
+        <div class="profile-avatar-trigger" onclick="toggleAccountMenu(event)" title="Switch user account & view role permissions">
           <div class="avatar-circle" id="topAvatar">O</div>
           <span class="profile-label" id="topUserName">Operator (Maker)</span>
-          <span class="profile-chevron">▾</span>
+          <svg class="profile-chevron-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
         </div>
       </div>
     </header>
 
-    <!-- YouTube Style Account Switcher Menu Popover -->
+    <!-- Netflix / Crunchyroll / YouTube Style Account Switcher Dropdown -->
     <div class="account-switcher-dropdown" id="accountMenu" onclick="event.stopPropagation()">
       <div class="account-header">
         <div class="account-header-avatar" id="menuHeaderAvatar">O</div>
         <div class="account-header-info">
-          <div class="account-header-name" id="menuHeaderName">Operator Account</div>
+          <div class="account-header-name" id="menuHeaderName">Operator (Maker)</div>
           <div class="account-header-email" id="menuHeaderEmail">operator@vivriti.internal</div>
-          <div style="margin-top:3px;"><span class="pill pill-blue" id="menuHeaderPill">ROLE_OPERATOR (Maker)</span></div>
+          <div style="margin-top:4px;"><span class="pill pill-blue" id="menuHeaderPill">ROLE_OPERATOR (Maker)</span></div>
         </div>
       </div>
 
-      <div class="account-section-title">Switch Account</div>
-
-      <!-- Option 1: Operator (Maker) -->
-      <div class="account-option active" id="optOperator" onclick="selectAccount('operator')">
-        <div class="account-option-avatar" style="background:#111827;">O</div>
-        <div class="account-option-details">
-          <div class="account-option-title">Operator (Maker)</div>
-          <div class="account-option-sub">Ingestion & 5-Tier Reconciliations</div>
+      <!-- Regulatory Governance Info Banner -->
+      <div class="account-role-banner">
+        <span style="font-size:1.1rem; line-height:1;">ℹ</span>
+        <div>
+          <strong>Four-Eyes Governance (Maker-Checker Policy):</strong><br>
+          Co-lending financial controls mandate strict separation of duties. Review role permissions below before switching.
         </div>
-        <div class="account-check-icon" id="checkOperator">✓</div>
       </div>
 
-      <!-- Option 2: Approver (Checker) -->
-      <div class="account-option" id="optApprover" onclick="selectAccount('approver')">
-        <div class="account-option-avatar" style="background:#4f46e5;">A</div>
-        <div class="account-option-details">
-          <div class="account-option-title">Approver (Checker)</div>
-          <div class="account-option-sub">Batch Close Governance & Sign-off</div>
+      <div class="account-section-title">Select Active Profile & Role</div>
+
+      <!-- Profile 1: Operator (Maker) -->
+      <div class="profile-card-item active" id="optOperator" onclick="selectAccount('operator')">
+        <div class="profile-card-header">
+          <div class="profile-card-left">
+            <div class="profile-card-avatar" style="background:#0284c7;">O</div>
+            <div>
+              <div class="profile-card-title">Operator (Maker)</div>
+              <div class="profile-card-role-tag">user: operator | ROLE_OPERATOR</div>
+            </div>
+          </div>
+          <span class="profile-card-check" id="checkOperator">✓ Active</span>
         </div>
-        <div class="account-check-icon" id="checkApprover">✓</div>
+        <div class="profile-card-desc">
+          ✅ <strong>Permissions:</strong> Feed Ingestion, 5-Tier Reconcile, Exception Overrides, and Day-Close Balance Equations.
+        </div>
+        <div class="profile-card-restriction">
+          ⛔ <strong>Strict Restriction:</strong> Cannot approve Day-Close (Blocked by Segregation of Duties).
+        </div>
+      </div>
+
+      <!-- Profile 2: Approver (Checker) -->
+      <div class="profile-card-item" id="optApprover" onclick="selectAccount('approver')">
+        <div class="profile-card-header">
+          <div class="profile-card-left">
+            <div class="profile-card-avatar" style="background:#6366f1;">A</div>
+            <div>
+              <div class="profile-card-title">Approver (Checker)</div>
+              <div class="profile-card-role-tag">user: approver | ROLE_APPROVER</div>
+            </div>
+          </div>
+          <span class="profile-card-check" id="checkApprover">✓ Active</span>
+        </div>
+        <div class="profile-card-desc">
+          ✅ <strong>Permissions:</strong> Independent Audit Review, Lineage Verification, and <strong>Day-Close Approval</strong>.
+        </div>
+        <div class="profile-card-restriction">
+          ⛔ <strong>Strict Restriction:</strong> Blocked from Day-Close approval if this user modified an exception in the same batch.
+        </div>
       </div>
 
       <!-- Sign out row -->
       <div class="account-footer-action" onclick="signOut()">
         <span style="font-size:1rem;">↪</span>
-        <span>Sign out of session</span>
+        <span>Sign out / Switch to Guest Mode</span>
       </div>
     </div>
 
@@ -1224,6 +1314,9 @@
         document.getElementById('menuHeaderPill').className = 'pill pill-yellow';
         document.getElementById('optOperator').classList.remove('active');
         document.getElementById('optApprover').classList.remove('active');
+        const checkOp = document.getElementById('checkOperator');
+        const checkAp = document.getElementById('checkApprover');
+        if (checkOp && checkAp) { checkOp.style.display = 'none'; checkAp.style.display = 'none'; }
         return;
       }
 
@@ -1244,12 +1337,16 @@
       document.getElementById('menuHeaderPill').innerText = `${acc.role} (${isApprover ? 'Checker' : 'Maker'})`;
       document.getElementById('menuHeaderPill').className = `pill ${isApprover ? 'pill-purple' : 'pill-blue'}`;
 
+      const checkOp = document.getElementById('checkOperator');
+      const checkAp = document.getElementById('checkApprover');
       if (currentAccountId === 'operator') {
         document.getElementById('optOperator').classList.add('active');
         document.getElementById('optApprover').classList.remove('active');
+        if (checkOp && checkAp) { checkOp.style.display = 'inline-block'; checkAp.style.display = 'none'; }
       } else {
         document.getElementById('optOperator').classList.remove('active');
         document.getElementById('optApprover').classList.add('active');
+        if (checkOp && checkAp) { checkOp.style.display = 'none'; checkAp.style.display = 'inline-block'; }
       }
     }
 
