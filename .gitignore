@@ -32,6 +32,7 @@ Thumbs.db
 
 # Log files & scratch
 *.log
+logs/
 scratch/
 .system_generated/
 
