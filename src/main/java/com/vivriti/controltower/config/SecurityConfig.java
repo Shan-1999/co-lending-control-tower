@@ -74,8 +74,9 @@ public class SecurityConfig {
                 // Health/actuator — public
                 .requestMatchers("/actuator/**").permitAll()
 
-                // Generator & Reset — either role
+                // Generator, Quality Report & Reset — either role
                 .requestMatchers(HttpMethod.POST, "/api/v1/generate", "/api/v1/reset").hasAnyRole("OPERATOR", "APPROVER")
+                .requestMatchers(HttpMethod.GET, "/api/v1/quality-report").hasAnyRole("OPERATOR", "APPROVER")
 
                 // Ingestion — either role
                 .requestMatchers(HttpMethod.POST, "/api/v1/ingest/**").hasAnyRole("OPERATOR", "APPROVER")

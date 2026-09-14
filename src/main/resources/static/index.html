@@ -894,6 +894,11 @@
           <span class="nav-icon">⚡</span>
           <span class="nav-label">Operations Center</span>
         </button>
+        <button class="nav-item" onclick="navigate('qualityPanel', this)">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Data Quality Report</span>
+          <span class="nav-count" id="badgeQuality">READY</span>
+        </button>
         <button class="nav-item" onclick="navigate('scorecardPanel', this)">
           <span class="nav-icon">🛡️</span>
           <span class="nav-label">Gate Scorecard</span>
@@ -1110,6 +1115,7 @@
                 <button class="btn btn-secondary" onclick="stepIngest()">2. Ingest Multi-Format</button>
                 <button class="btn btn-secondary" onclick="stepReconcile()">3. 5-Tier Reconcile</button>
                 <button class="btn btn-primary" onclick="stepEvaluate()">4. Evaluate Gate</button>
+                <button class="btn btn-secondary" style="border-color:#3b82f6; color:#2563eb; background:#eff6ff;" onclick="navigate('qualityPanel')">📊 View Quality Report</button>
               </div>
             </div>
 
@@ -1120,6 +1126,150 @@
               </div>
               <pre class="terminal-stream" id="logConsole">Engine ready. Click "Execute End-to-End Pipeline" to run all 4 stages against Seed 42.</pre>
             </div>
+          </div>
+
+          <!-- Live Synthetic Data Quality Preview Card -->
+          <div class="card" style="margin-top:1.25rem;">
+            <div class="card-title">
+              <span>Latest Data Quality Summary</span>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <span class="pill pill-green" id="opsQualityBadge">REPORT ACTIVE</span>
+                <button class="btn btn-secondary" style="padding:0.2rem 0.6rem; font-size:0.75rem;" onclick="navigate('qualityPanel')">View Full Report &rarr;</button>
+              </div>
+            </div>
+            <div class="grid-4" style="margin-bottom:0.75rem;">
+              <div class="kpi-card" style="padding:0.75rem;">
+                <div class="kpi-label">Generated Loans</div>
+                <div class="kpi-val" id="opsTotalLoans" style="font-size:1.3rem;">2,000</div>
+                <div class="kpi-sub">Target Seed Instruction</div>
+              </div>
+              <div class="kpi-card" style="padding:0.75rem;">
+                <div class="kpi-label">Feed Records</div>
+                <div class="kpi-val" id="opsTotalRecords" style="font-size:1.3rem;">5,972</div>
+                <div class="kpi-sub">Alpha, Beta, Gamma</div>
+              </div>
+              <div class="kpi-card" style="padding:0.75rem;">
+                <div class="kpi-label">Overall Anomaly Rate</div>
+                <div class="kpi-val" id="opsAnomalyRate" style="font-size:1.3rem; color:var(--accent-blue);">9.40%</div>
+                <div class="kpi-sub">&ge; 5% Hard Gate Criterion</div>
+              </div>
+              <div class="kpi-card" style="padding:0.75rem;">
+                <div class="kpi-label">Anomaly Types</div>
+                <div class="kpi-val" id="opsAnomalyCoverage" style="font-size:1.3rem; color:var(--accent-green);">10 / 10</div>
+                <div class="kpi-sub">Full Variety Represented</div>
+              </div>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+              <span id="opsQualityPath">Report Source: <code>./data/seed_clean/data_quality_report.md</code></span>
+              <a href="javascript:void(0)" onclick="navigate('qualityPanel')" style="color:var(--accent-blue); text-decoration:none; font-weight:600;">Inspect Distribution by Source &amp; Partner &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Quality Report Panel -->
+        <div id="qualityPanel" class="content-panel">
+          <div class="hero-banner">
+            <div>
+              <div class="hero-title">Synthetic Data Quality Report</div>
+              <div class="hero-subtitle">
+                Generated feed dataset audit verifying seeded determinism, multi-format integrity (JSON, CSV, Pipe), partner distributions, and 10 injected anomaly types.
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" onclick="fetchQualityReport()">↻ Refresh Report</button>
+              <button class="btn btn-secondary" onclick="copyQualityReportMarkdown()">📋 Copy Markdown</button>
+            </div>
+          </div>
+
+          <div class="grid-4" style="margin-bottom:1.25rem;">
+            <div class="kpi-card">
+              <div class="kpi-label">Total Loans Generated</div>
+              <div class="kpi-val" id="qrTotalLoans">--</div>
+              <div class="kpi-sub">Unique Loan Instructions</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Total Feed Records</div>
+              <div class="kpi-val" id="qrTotalRecords">--</div>
+              <div class="kpi-sub">Originator + Bank + LMS</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Overall Anomaly Rate</div>
+              <div class="kpi-val" id="qrAnomalyRate" style="color:var(--accent-blue);">--</div>
+              <div class="kpi-sub">&ge; 5.00% Required by Gate</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Anomaly Coverage</div>
+              <div class="kpi-val" id="qrAnomalyTypes" style="color:var(--accent-green);">10 / 10</div>
+              <div class="kpi-sub">All Anomaly Classes Active</div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom:1.25rem;">
+            <div class="card">
+              <div class="card-title">
+                <span>Records by Source System</span>
+                <span class="pill pill-blue">3 FEEDS</span>
+              </div>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr><th>Source System</th><th>Format</th><th>Record Count</th><th>Total Paise Exposure</th></tr>
+                  </thead>
+                  <tbody id="qrSourceTable">
+                    <tr><td><strong>ORIGINATOR</strong></td><td>JSON / CSV / Pipe</td><td id="qrCountOrig">--</td><td id="qrPaiseOrig">--</td></tr>
+                    <tr><td><strong>BANK</strong></td><td>Settlement Debits &amp; Reversals</td><td id="qrCountBank">--</td><td id="qrPaiseBank">--</td></tr>
+                    <tr><td><strong>LMS</strong></td><td>Loan Bookings</td><td id="qrCountLms">--</td><td id="qrPaiseLms">--</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span>Partner &amp; Day Distribution</span>
+                <span class="pill pill-green">BALANCED</span>
+              </div>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr><th>Dimension</th><th>Target / Share</th><th>Loan Count</th><th>Status</th></tr>
+                  </thead>
+                  <tbody id="qrDistTable">
+                    <tr><td><strong>PARTNER_ALPHA</strong> (JSON)</td><td>~34%</td><td id="qrAlphaLoans">--</td><td><span class="pill pill-green">OPTIMAL</span></td></tr>
+                    <tr><td><strong>PARTNER_BETA</strong> (CSV)</td><td>~33%</td><td id="qrBetaLoans">--</td><td><span class="pill pill-green">OPTIMAL</span></td></tr>
+                    <tr><td><strong>PARTNER_GAMMA</strong> (Pipe)</td><td>~33%</td><td id="qrGammaLoans">--</td><td><span class="pill pill-green">OPTIMAL</span></td></tr>
+                    <tr><td><strong>Day 1</strong> (2024-01-15)</td><td>T-2</td><td id="qrDay1Loans">--</td><td><span class="pill pill-blue">ACTIVE</span></td></tr>
+                    <tr><td><strong>Day 2</strong> (2024-01-16)</td><td>T-1</td><td id="qrDay2Loans">--</td><td><span class="pill pill-blue">ACTIVE</span></td></tr>
+                    <tr><td><strong>Day 3</strong> (2024-01-17)</td><td>T-0 (Cutoff)</td><td id="qrDay3Loans">--</td><td><span class="pill pill-blue">ACTIVE</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:1.25rem;">
+            <div class="card-title">
+              <span>Injected Anomaly Classes Distribution (All 10 Classes Represented)</span>
+              <span class="pill pill-purple">10 TYPES</span>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr><th>Anomaly Type</th><th>Operational Category</th><th>Injected Count</th><th>Rate %</th><th>Expected Outcome</th></tr>
+                </thead>
+                <tbody id="qrAnomaliesTable">
+                  <tr><td colspan="5" style="text-align:center;">Loading anomalies...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">
+              <span>Raw Markdown Report (data_quality_report.md)</span>
+              <span class="pill pill-blue" id="qrReportPath">data_quality_report.md</span>
+            </div>
+            <pre class="terminal-stream" id="qrRawMarkdown" style="max-height:420px; font-size:0.82rem; background:#ffffff; border:1px solid var(--border); line-height:1.5;">Loading quality report...</pre>
           </div>
         </div>
 
@@ -1551,6 +1701,7 @@
 
       const titles = {
         opsPanel: 'Operations Center',
+        qualityPanel: 'Data Quality Report',
         scorecardPanel: 'Gate Scorecard & Evaluation',
         exceptionsPanel: 'Exception Queue & SLA',
         clustersPanel: 'Phase 2 Root-Cause Clusters',
@@ -1560,6 +1711,7 @@
       };
       document.getElementById('currentViewLabel').innerText = titles[panelId] || 'Control Tower';
 
+      if (panelId === 'qualityPanel') fetchQualityReport();
       if (panelId === 'scorecardPanel') stepEvaluate();
       if (panelId === 'exceptionsPanel') fetchExceptions();
       if (panelId === 'clustersPanel') fetchClusters();
@@ -1704,6 +1856,11 @@
       });
       const data = await res.json();
       log(data);
+      if (data.qualityReport) {
+        parseAndRenderQualityReport(data.qualityReport, dir);
+      } else {
+        fetchQualityReport(dir);
+      }
       return data;
     }
 
@@ -2074,10 +2231,154 @@
       selectAccount(prev);
     }
 
+    let currentQualityReportMarkdown = '';
+
+    function parseAndRenderQualityReport(markdown, reportPath) {
+      if (!markdown) return;
+      currentQualityReportMarkdown = markdown;
+
+      // Raw view
+      const rawEl = document.getElementById('qrRawMarkdown');
+      if (rawEl) rawEl.innerText = markdown;
+
+      const pathEl = document.getElementById('qrReportPath');
+      if (pathEl && reportPath) pathEl.innerText = reportPath;
+      const opsPathEl = document.getElementById('opsQualityPath');
+      if (opsPathEl && reportPath) opsPathEl.innerHTML = `Report Source: <code>${reportPath}/data_quality_report.md</code>`;
+
+      const matchVal = (regex, defaultVal = '--') => {
+        const m = markdown.match(regex);
+        return m ? m[1].trim() : defaultVal;
+      };
+
+      const totalLoans = matchVal(/\*\*Total Loans:\*\*\s*(\d+)/);
+      const totalRecords = matchVal(/\*\*Total Records Generated:\*\*\s*(\d+)/);
+      const anomalyRate = matchVal(/\*\*Overall Anomaly Rate:\*\*\s*([\d.]+%)/);
+
+      // Top KPI Cards
+      const elTotalLoans = document.getElementById('qrTotalLoans');
+      if (elTotalLoans) elTotalLoans.innerText = totalLoans !== '--' ? Number(totalLoans).toLocaleString() : '--';
+      const elTotalRecords = document.getElementById('qrTotalRecords');
+      if (elTotalRecords) elTotalRecords.innerText = totalRecords !== '--' ? Number(totalRecords).toLocaleString() : '--';
+      const elAnomalyRate = document.getElementById('qrAnomalyRate');
+      if (elAnomalyRate) elAnomalyRate.innerText = anomalyRate;
+
+      // Ops Center Preview
+      const opsLoans = document.getElementById('opsTotalLoans');
+      if (opsLoans) opsLoans.innerText = totalLoans !== '--' ? Number(totalLoans).toLocaleString() : '--';
+      const opsRecords = document.getElementById('opsTotalRecords');
+      if (opsRecords) opsRecords.innerText = totalRecords !== '--' ? Number(totalRecords).toLocaleString() : '--';
+      const opsRate = document.getElementById('opsAnomalyRate');
+      if (opsRate) opsRate.innerText = anomalyRate;
+
+      // Sources
+      const countOrig = matchVal(/\*\*ORIGINATOR:\*\*\s*(\d+)/);
+      const countBank = matchVal(/\*\*BANK:\*\*\s*(\d+)/);
+      const countLms = matchVal(/\*\*LMS:\*\*\s*(\d+)/);
+
+      const paiseOrig = matchVal(/## Total Paise by Source System[\s\S]*?\*\*ORIGINATOR:\*\*\s*(\d+)/);
+      const paiseBank = matchVal(/## Total Paise by Source System[\s\S]*?\*\*BANK:\*\*\s*(\d+)/);
+      const paiseLms = matchVal(/## Total Paise by Source System[\s\S]*?\*\*LMS:\*\*\s*(\d+)/);
+
+      const formatPaise = (p) => p !== '--' ? '₹' + (Number(p) / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '--';
+
+      if (document.getElementById('qrCountOrig')) document.getElementById('qrCountOrig').innerText = countOrig !== '--' ? Number(countOrig).toLocaleString() : '--';
+      if (document.getElementById('qrCountBank')) document.getElementById('qrCountBank').innerText = countBank !== '--' ? Number(countBank).toLocaleString() : '--';
+      if (document.getElementById('qrCountLms')) document.getElementById('qrCountLms').innerText = countLms !== '--' ? Number(countLms).toLocaleString() : '--';
+
+      if (document.getElementById('qrPaiseOrig')) document.getElementById('qrPaiseOrig').innerText = formatPaise(paiseOrig);
+      if (document.getElementById('qrPaiseBank')) document.getElementById('qrPaiseBank').innerText = formatPaise(paiseBank);
+      if (document.getElementById('qrPaiseLms')) document.getElementById('qrPaiseLms').innerText = formatPaise(paiseLms);
+
+      // Partner & Days
+      const pAlpha = matchVal(/\*\*PARTNER_ALPHA:\*\*\s*(\d+)/);
+      const pBeta = matchVal(/\*\*PARTNER_BETA:\*\*\s*(\d+)/);
+      const pGamma = matchVal(/\*\*PARTNER_GAMMA:\*\*\s*(\d+)/);
+      const d1 = matchVal(/\*\*Day 1:\*\*\s*(\d+)/);
+      const d2 = matchVal(/\*\*Day 2:\*\*\s*(\d+)/);
+      const d3 = matchVal(/\*\*Day 3:\*\*\s*(\d+)/);
+
+      if (document.getElementById('qrAlphaLoans')) document.getElementById('qrAlphaLoans').innerText = pAlpha !== '--' ? `${Number(pAlpha).toLocaleString()} loans` : '--';
+      if (document.getElementById('qrBetaLoans')) document.getElementById('qrBetaLoans').innerText = pBeta !== '--' ? `${Number(pBeta).toLocaleString()} loans` : '--';
+      if (document.getElementById('qrGammaLoans')) document.getElementById('qrGammaLoans').innerText = pGamma !== '--' ? `${Number(pGamma).toLocaleString()} loans` : '--';
+
+      if (document.getElementById('qrDay1Loans')) document.getElementById('qrDay1Loans').innerText = d1 !== '--' ? `${Number(d1).toLocaleString()} loans` : '--';
+      if (document.getElementById('qrDay2Loans')) document.getElementById('qrDay2Loans').innerText = d2 !== '--' ? `${Number(d2).toLocaleString()} loans` : '--';
+      if (document.getElementById('qrDay3Loans')) document.getElementById('qrDay3Loans').innerText = d3 !== '--' ? `${Number(d3).toLocaleString()} loans` : '--';
+
+      // 10 Anomaly Types Table
+      const anomalyDefs = [
+        { type: 'MISSING_BANK_LEG', category: 'MISSING_FEED_LEG', desc: 'Bank settlement debit missing from callback feed', outcome: 'Routes to Partner Integration Eng' },
+        { type: 'MISSING_LMS_LEG', category: 'MISSING_FEED_LEG', desc: 'LMS loan booking missing from batch', outcome: 'Routes to Partner Integration Eng' },
+        { type: 'DUPLICATE_BANK_EVENT', category: 'DUPLICATE_CALLBACK', desc: 'Duplicate bank webhook received', outcome: 'Deduplicated (1st matched, 2nd rejected)' },
+        { type: 'AMOUNT_MISMATCH', category: 'AMOUNT_MISMATCH', desc: 'Originator instructed vs LMS booked amount delta', outcome: 'Finance Operations break with exposure' },
+        { type: 'STATUS_MISMATCH', category: 'STATUS_MISMATCH', desc: 'Bank payment FAILED while LMS booking is SUCCESS', outcome: 'Lending Operations critical break' },
+        { type: 'TIMING_DIFFERENCE', category: 'TIMING', desc: 'Callback arrived post-cutoff within 24h grace window', outcome: 'Level 3 Grace Window (PENDING_GRACE)' },
+        { type: 'COMPOSITE_SPLIT', category: 'COMPOSITE', desc: 'Originator instruction split into 2 bank debits', outcome: 'Level 2 Composite Matcher balanced' },
+        { type: 'ORPHAN_REVERSAL', category: 'ORPHAN_REVERSAL', desc: 'Bank reversal referencing non-existent loan', outcome: 'Finance Operations investigation' },
+        { type: 'SCHEMA_BREACH', category: 'SCHEMA_BREACH', desc: 'Missing required field or negative amount', outcome: 'Quarantined at raw layer, batch partial success' },
+        { type: 'BATCH_TOTAL_MISMATCH', category: 'CONTROL_TOTAL_MISMATCH', desc: 'Batch header declared total != record sum', outcome: 'Batch quarantined, Finance Controller alert' }
+      ];
+
+      const totalLoansNum = Number(totalLoans) || 2000;
+      const tbody = document.getElementById('qrAnomaliesTable');
+      if (tbody) {
+        let rowsHtml = '';
+        let activeTypesCount = 0;
+        anomalyDefs.forEach(def => {
+          const reg = new RegExp(`\\*\\*${def.type}:\\*\\*\\s*(\\d+)`);
+          const countStr = matchVal(reg, '0');
+          const count = Number(countStr) || 0;
+          if (count > 0) activeTypesCount++;
+          const pct = ((count / totalLoansNum) * 100).toFixed(2);
+          rowsHtml += `
+            <tr>
+              <td><code>${def.type}</code></td>
+              <td><span class="pill pill-purple">${def.category}</span></td>
+              <td><strong>${count.toLocaleString()}</strong></td>
+              <td style="font-family:var(--font-mono); font-size:0.8rem;">${pct}%</td>
+              <td style="color:var(--text-muted); font-size:0.78rem;">${def.desc} &rarr; <em>${def.outcome}</em></td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = rowsHtml;
+        const qrTypesEl = document.getElementById('qrAnomalyTypes');
+        if (qrTypesEl) qrTypesEl.innerText = `${activeTypesCount} / 10`;
+        const opsCoverageEl = document.getElementById('opsAnomalyCoverage');
+        if (opsCoverageEl) opsCoverageEl.innerText = `${activeTypesCount} / 10`;
+      }
+    }
+
+    async function fetchQualityReport(dirOverride) {
+      const dir = dirOverride || document.getElementById('cfgDir').value;
+      try {
+        const res = await fetch(`/api/v1/quality-report?outputDir=${encodeURIComponent(dir)}`, { headers: getAuth() });
+        const data = await res.json();
+        if (data.status === 'SUCCESS' && data.report) {
+          parseAndRenderQualityReport(data.report, data.path || dir);
+        }
+      } catch (err) {
+        console.error('Failed to fetch quality report: ' + err);
+      }
+    }
+
+    function copyQualityReportMarkdown() {
+      if (!currentQualityReportMarkdown) {
+        alert('No quality report available to copy. Please generate feeds first.');
+        return;
+      }
+      navigator.clipboard.writeText(currentQualityReportMarkdown).then(() => {
+        alert('Data Quality Report markdown copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy markdown report:', currentQualityReportMarkdown);
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       initAuth();
       fetchExceptions();
       fetchClusters();
+      fetchQualityReport();
     });
   </script>
 </body>

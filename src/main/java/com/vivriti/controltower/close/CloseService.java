@@ -9,10 +9,12 @@ import com.vivriti.controltower.canonical.SourceBatchEntity;
 import com.vivriti.controltower.canonical.SourceBatchRepository;
 import com.vivriti.controltower.common.IdGenerator;
 import com.vivriti.controltower.common.enums.CloseDecision;
+import com.vivriti.controltower.canonical.ReconciliationExceptionEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 public class CloseService {
@@ -46,14 +48,29 @@ public class CloseService {
         SourceBatchEntity batch = batchRepository.findById(batchId)
                 .orElseThrow(() -> new IllegalArgumentException("Batch not found"));
 
-        // Dummy stats for the sake of completion
+        var allBlocking = blockingEvaluator.evaluate(batchId);
+        List<ReconciliationExceptionEntity> partnerBlocking = allBlocking.stream()
+                .filter(e -> batch.getPartnerCode().equalsIgnoreCase(e.getPartnerCode()))
+                .toList();
+
         long matched = batch.getDeclaredAmountPaise();
         long timing = 0;
         long unresolved = 0;
         long quarantined = 0;
 
+        if ("QUARANTINED".equalsIgnoreCase(batch.getStatus())) {
+            quarantined = batch.getDeclaredAmountPaise();
+            matched = 0;
+        } else if (!partnerBlocking.isEmpty()) {
+            unresolved = partnerBlocking.stream()
+                    .mapToLong(ReconciliationExceptionEntity::getExposureAmountPaise)
+                    .sum();
+            unresolved = Math.min(unresolved, batch.getDeclaredAmountPaise());
+            matched = Math.max(0, batch.getDeclaredAmountPaise() - unresolved);
+        }
+
         CloseEquationResult eq = equationEvaluator.evaluate(batch, 0, matched, timing, unresolved, quarantined);
-        var blocking = blockingEvaluator.evaluate(batchId);
+        List<ReconciliationExceptionEntity> blocking = partnerBlocking.isEmpty() ? allBlocking : partnerBlocking;
 
         CloseSummaryEntity summary = new CloseSummaryEntity();
         summary.setCloseId(IdGenerator.newId());
@@ -69,8 +86,11 @@ public class CloseService {
         summary.setQuarantinedPaise(eq.quarantinedPaise());
         summary.setUnaccountedPaise(eq.unaccountedPaise());
 
-        long threshold = 0L; // From config in a real app
-        if (eq.unaccountedPaise() == 0 && eq.unresolvedExceptionPaise() <= threshold) {
+        long threshold = 0L; // Zero tolerance
+        if (eq.unaccountedPaise() == 0 
+                && eq.unresolvedExceptionPaise() <= threshold 
+                && eq.quarantinedPaise() == 0 
+                && !"QUARANTINED".equalsIgnoreCase(batch.getStatus())) {
             summary.setDecision(CloseDecision.CLOSE.name());
         } else {
             summary.setDecision(CloseDecision.HOLD.name());
