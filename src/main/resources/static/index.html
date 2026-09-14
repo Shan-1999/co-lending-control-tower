@@ -735,15 +735,15 @@
       </button>
       <button class="nav-item" onclick="navigate('scorecardPanel', this)">
         Gate Scorecard
-        <span class="nav-count" id="badgeGate">PASS</span>
+        <span class="nav-count" id="badgeGate">--</span>
       </button>
       <button class="nav-item" onclick="navigate('exceptionsPanel', this)">
         Exception Queue
-        <span class="nav-count" id="badgeExceptions">66</span>
+        <span class="nav-count" id="badgeExceptions">0</span>
       </button>
       <button class="nav-item" onclick="navigate('clustersPanel', this)">
         Root-Cause Clusters
-        <span class="nav-count">10</span>
+        <span class="nav-count" id="badgeClusters">0</span>
       </button>
       <button class="nav-item" onclick="navigate('closePanel', this)">
         Batch Close Workbench
@@ -928,22 +928,22 @@
           <div class="grid-4" style="margin-bottom:1.25rem;">
             <div class="kpi-card">
               <div class="kpi-label">Hard Gate Status</div>
-              <div class="kpi-val" id="kpiGateStatus" style="color:#059669;">PASSED</div>
+              <div class="kpi-val" id="kpiGateStatus" style="color:var(--text-muted);">--</div>
               <div class="kpi-sub">0 False Matches Tolerance</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-label">False Match Exposure</div>
-              <div class="kpi-val" id="kpiFalseExposure" style="color:#059669;">₹0.00</div>
+              <div class="kpi-val" id="kpiFalseExposure" style="color:var(--text-muted);">₹0.00</div>
               <div class="kpi-sub">0 Disputed Loans Reconciled</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-label">Straight-Through Rate</div>
-              <div class="kpi-val" id="kpiStp" style="color:#2563eb;">91.10%</div>
+              <div class="kpi-val" id="kpiStp" style="color:var(--text-muted);">--</div>
               <div class="kpi-sub">Level 1 Exact Matches</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-label">Control Total Integrity</div>
-              <div class="kpi-val" id="kpiDelta" style="color:#059669;">₹0.00</div>
+              <div class="kpi-val" id="kpiDelta" style="color:var(--text-muted);">₹0.00</div>
               <div class="kpi-sub">Zero Unaccounted Paise</div>
             </div>
           </div>
@@ -957,11 +957,11 @@
                     <tr><th>Level</th><th>Rule</th><th>Volume & Value</th><th>Status</th></tr>
                   </thead>
                   <tbody>
-                    <tr><td>Level 1</td><td>Exact Match</td><td id="tdExact">911 — ₹4,858,981.87</td><td><span class="pill pill-green">RECONCILED</span></td></tr>
-                    <tr><td>Level 2</td><td>Composite Split</td><td id="tdComposite">8 — ₹55,908.47</td><td><span class="pill pill-blue">BALANCED</span></td></tr>
-                    <tr><td>Level 3</td><td>Timing Grace Window</td><td id="tdTiming">15 — ₹90,184.57</td><td><span class="pill pill-yellow">PENDING GRACE</span></td></tr>
-                    <tr><td>Level 4</td><td>Probable Advisory (Read-Only)</td><td id="tdProbable">61 Proposals</td><td><span class="pill pill-purple">ADVISORY ONLY</span></td></tr>
-                    <tr><td>Level 5</td><td>Unresolved Breaks</td><td id="tdUnresolved">66 — ₹305,042.85</td><td><span class="pill pill-red">OWNED BREAK</span></td></tr>
+                    <tr><td>Level 1</td><td>Exact Match</td><td id="tdExact">--</td><td><span class="pill pill-green">RECONCILED</span></td></tr>
+                    <tr><td>Level 2</td><td>Composite Split</td><td id="tdComposite">--</td><td><span class="pill pill-blue">BALANCED</span></td></tr>
+                    <tr><td>Level 3</td><td>Timing Grace Window</td><td id="tdTiming">--</td><td><span class="pill pill-yellow">PENDING GRACE</span></td></tr>
+                    <tr><td>Level 4</td><td>Probable Advisory (Read-Only)</td><td id="tdProbable">--</td><td><span class="pill pill-purple">ADVISORY ONLY</span></td></tr>
+                    <tr><td>Level 5</td><td>Unresolved Breaks</td><td id="tdUnresolved">--</td><td><span class="pill pill-red">OWNED BREAK</span></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -1376,6 +1376,76 @@
       }
     }
 
+    function resetFrontendState() {
+      // Nav badges
+      const badgeGate = document.getElementById('badgeGate');
+      if (badgeGate) {
+        badgeGate.innerText = '--';
+        badgeGate.style.background = '';
+        badgeGate.style.color = '';
+      }
+      const badgeExceptions = document.getElementById('badgeExceptions');
+      if (badgeExceptions) badgeExceptions.innerText = '0';
+      const badgeClusters = document.getElementById('badgeClusters');
+      if (badgeClusters) badgeClusters.innerText = '0';
+
+      // KPI cards
+      const kpiGate = document.getElementById('kpiGateStatus');
+      if (kpiGate) {
+        kpiGate.innerText = '--';
+        kpiGate.style.color = 'var(--text-muted)';
+      }
+      const kpiExp = document.getElementById('kpiFalseExposure');
+      if (kpiExp) {
+        kpiExp.innerText = '₹0.00';
+        kpiExp.style.color = 'var(--text-muted)';
+      }
+      const kpiStp = document.getElementById('kpiStp');
+      if (kpiStp) {
+        kpiStp.innerText = '--';
+        kpiStp.style.color = 'var(--text-muted)';
+      }
+      const kpiDelta = document.getElementById('kpiDelta');
+      if (kpiDelta) {
+        kpiDelta.innerText = '₹0.00';
+        kpiDelta.style.color = 'var(--text-muted)';
+      }
+
+      // Hierarchy Breakdown table
+      ['tdExact', 'tdComposite', 'tdTiming', 'tdProbable', 'tdUnresolved'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = '--';
+      });
+
+      // Confusion matrix
+      const matrixTbody = document.getElementById('matrixTbody');
+      if (matrixTbody) {
+        matrixTbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Database reset. Click "Execute End-to-End Pipeline" to populate matrix.</td></tr>';
+      }
+
+      // Exceptions table
+      const exceptionsTbody = document.getElementById('exceptionsTbody');
+      if (exceptionsTbody) {
+        exceptionsTbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No active exceptions. Database is empty.</td></tr>';
+      }
+
+      // Clusters grid
+      const clustersGrid = document.getElementById('clustersGrid');
+      if (clustersGrid) {
+        clustersGrid.innerHTML = '<div style="grid-column:span 2; text-align:center; padding:2rem; color:var(--text-muted);">No active root-cause clusters. Database is empty.</div>';
+      }
+
+      // Batches dropdown
+      const batchDropdown = document.getElementById('batchDropdown');
+      if (batchDropdown) batchDropdown.innerHTML = '<option value="">No batches available</option>';
+
+      // Close details box
+      const closeBox = document.getElementById('closeDetailsBox');
+      if (closeBox) {
+        closeBox.innerHTML = '<div style="text-align:center; color:var(--text-muted);">No batch evaluated yet.</div>';
+      }
+    }
+
     // Pipeline Execution Calls
     async function triggerReset(btn) {
       if (isBusy) return;
@@ -1386,6 +1456,7 @@
         const res = await fetch('/api/v1/reset', { method: 'POST', headers: getAuth() });
         const data = await res.json();
         log(data);
+        resetFrontendState();
       } catch (e) { log('Error: ' + e); }
       finally { setBusy(false, b); }
     }
@@ -1458,11 +1529,20 @@
       const dir = document.getElementById('cfgDir').value;
       const gt = `${dir}/groundtruth/ground_truth.json`;
       log('Evaluating results against ground truth...');
-      const res = await fetch(`/api/v1/evaluate?groundTruthPath=${encodeURIComponent(gt)}`, { headers: getAuth() });
-      const data = await res.json();
-      renderScorecard(data);
-      log('Evaluation finished. Gate status: ' + data.phase1Gate.gateStatus);
-      return data;
+      try {
+        const res = await fetch(`/api/v1/evaluate?groundTruthPath=${encodeURIComponent(gt)}`, { headers: getAuth() });
+        const data = await res.json();
+        if (data.phase1Gate && data.phase1Gate.gateStatus === 'NOT_EVALUATED') {
+          resetFrontendState();
+          log('Evaluation: Database has 0 match decisions. Run ingestion and reconciliation first.');
+          return data;
+        }
+        renderScorecard(data);
+        log('Evaluation finished. Gate status: ' + (data.phase1Gate ? data.phase1Gate.gateStatus : 'COMPLETED'));
+        return data;
+      } catch (err) {
+        log('Evaluation request error: ' + err);
+      }
     }
 
     async function stepEvaluate(btn) {
@@ -1502,11 +1582,36 @@
 
     function renderScorecard(data) {
       const p1 = data.phase1Gate;
-      document.getElementById('kpiGateStatus').innerText = p1.gateStatus;
-      document.getElementById('kpiGateStatus').style.color = p1.gateStatus === 'PASSED' ? '#059669' : '#dc2626';
+      if (!p1) return;
+
+      const badgeGate = document.getElementById('badgeGate');
+      if (badgeGate) {
+        if (p1.gateStatus === 'PASSED') {
+          badgeGate.innerText = 'PASS';
+          badgeGate.style.background = '#ecfdf5';
+          badgeGate.style.color = '#059669';
+        } else if (p1.gateStatus === 'FAILED') {
+          badgeGate.innerText = 'FAIL';
+          badgeGate.style.background = '#fef2f2';
+          badgeGate.style.color = '#dc2626';
+        } else {
+          badgeGate.innerText = '--';
+          badgeGate.style.background = '';
+          badgeGate.style.color = '';
+        }
+      }
+
+      const kpiGate = document.getElementById('kpiGateStatus');
+      if (kpiGate) {
+        kpiGate.innerText = p1.gateStatus;
+        kpiGate.style.color = p1.gateStatus === 'PASSED' ? '#059669' : (p1.gateStatus === 'FAILED' ? '#dc2626' : 'var(--text-muted)');
+      }
       document.getElementById('kpiFalseExposure').innerText = p1.falseMatchExposureValue;
+      document.getElementById('kpiFalseExposure').style.color = p1.falseMatchExposureCount === 0 ? '#059669' : '#dc2626';
       document.getElementById('kpiStp').innerText = p1.straightThroughRate;
+      document.getElementById('kpiStp').style.color = '#2563eb';
       document.getElementById('kpiDelta').innerText = p1.controlTotalDelta;
+      document.getElementById('kpiDelta').style.color = p1.controlTotalDelta === '₹0.00' ? '#059669' : '#dc2626';
 
       document.getElementById('tdExact').innerText = p1.exactMatchRate;
       document.getElementById('tdComposite').innerText = p1.compositeMatchRate;
@@ -1592,8 +1697,14 @@
       try {
         const res = await fetch('/api/v1/exceptions/clusters', { headers: getAuth() });
         const list = await res.json();
+        const badge = document.getElementById('badgeClusters');
+        if (badge) badge.innerText = list.length;
         const grid = document.getElementById('clustersGrid');
         grid.innerHTML = '';
+        if (!list || list.length === 0) {
+          grid.innerHTML = '<div style="grid-column:span 2; text-align:center; padding:2rem; color:var(--text-muted);">No active root-cause clusters. Database is empty.</div>';
+          return;
+        }
         list.forEach(c => {
           grid.innerHTML += `
             <div class="card" style="border-left:3px solid #6366f1;">
@@ -1734,6 +1845,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       initAuth();
       fetchExceptions();
+      fetchClusters();
     });
   </script>
 </body>

@@ -180,8 +180,9 @@ public class EvaluationReporter {
         phase1.put("falseMatchExposureCount", falseMatchCount);
         phase1.put("falseMatchExposureValue", MoneyUtils.formatPaiseAsInr(falseMatchValuePaise));
         phase1.put("straightThroughRate", String.format("%.2f%%", stpRate));
-        phase1.put("controlTotalDelta", MoneyUtils.formatPaiseAsInr(controlTotalDeltaPaise));
-        phase1.put("gateStatus", falseMatchCount == 0 && controlTotalDeltaPaise == 0 ? "PASSED" : "FAILED");
+        String gateStatus = allDecisions.isEmpty() ? "NOT_EVALUATED"
+                : (falseMatchCount == 0 && controlTotalDeltaPaise == 0 ? "PASSED" : "FAILED");
+        phase1.put("gateStatus", gateStatus);
 
         Map<String, Object> phase2 = new LinkedHashMap<>();
         phase2.put("probableProposalsCount", probableProposals);
