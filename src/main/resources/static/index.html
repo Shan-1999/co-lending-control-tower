@@ -824,6 +824,63 @@
     .pill-yellow { background: var(--accent-yellow-bg); color: var(--accent-yellow); border: 1px solid var(--accent-yellow-border); }
     .pill-red { background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border); }
 
+    /* Workbench Filter Chips */
+    .status-chip, .partner-chip {
+      padding: 0.32rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      user-select: none;
+    }
+    .status-chip:hover, .partner-chip:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-dark);
+    }
+    .status-chip.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    .status-chip.chip-green.active {
+      background: #059669;
+      border-color: #059669;
+      color: #ffffff;
+    }
+    .status-chip.chip-yellow.active {
+      background: #d97706;
+      border-color: #d97706;
+      color: #ffffff;
+    }
+    .status-chip.chip-red.active {
+      background: #dc2626;
+      border-color: #dc2626;
+      color: #ffffff;
+    }
+    .partner-chip.active {
+      background: #3b82f6;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+    .chip-count {
+      background: rgba(0,0,0,0.07);
+      padding: 0.08rem 0.35rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+    }
+    .status-chip.active .chip-count, .partner-chip.active .chip-count {
+      background: rgba(255,255,255,0.28);
+      color: #ffffff;
+    }
+
     /* Terminal Stream Box */
     .terminal-stream {
       background: #f9fafb;
@@ -1283,6 +1340,7 @@
               </div>
             </div>
             <div class="hero-actions">
+              <button class="btn btn-primary" onclick="autoReconcileAndEvaluate(this)">⚡ Run Reconcile &amp; Populate Scorecard</button>
               <button class="btn btn-secondary" onclick="stepEvaluate()">↻ Refresh Evaluation</button>
             </div>
           </div>
@@ -1408,10 +1466,49 @@
 
           <div class="grid-2">
             <div class="card">
-              <div class="card-title">Close Equation Evaluation</div>
+              <div class="card-title">
+                <span>Batch Evaluation & Triage</span>
+                <span class="pill pill-blue" id="closeFilterSummary">All Batches (27)</span>
+              </div>
+
+              <!-- Quick Filter by Close Decision / Hold Status -->
+              <div style="margin-bottom:0.85rem;">
+                <div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.35rem;">
+                  Filter by Decision &amp; Hold Status
+                </div>
+                <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                  <button class="status-chip active" id="chipCloseAll" onclick="setCloseStatusFilter('ALL', this)">
+                    All <span class="chip-count" id="countAll">27</span>
+                  </button>
+                  <button class="status-chip chip-green" id="chipCloseReady" onclick="setCloseStatusFilter('CLOSE', this)" title="Clean batches that balance to ₹0.00 with zero breaks">
+                    🟢 Ready to Close <span class="chip-count" id="countClose">3</span>
+                  </button>
+                  <button class="status-chip chip-yellow" id="chipCloseHold" onclick="setCloseStatusFilter('HOLD', this)" title="Batches held due to exceptions needing Maker override">
+                    🔴 On Hold (Breaks) <span class="chip-count" id="countHold">3</span>
+                  </button>
+                  <button class="status-chip chip-red" id="chipCloseQuar" onclick="setCloseStatusFilter('QUARANTINED', this)" title="Batches held at Ingestion Gate due to header mismatch">
+                    ⚠️ Quarantined <span class="chip-count" id="countQuar">21</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Filter by Partner -->
+              <div style="margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border);">
+                <div style="display:flex; gap:0.35rem; align-items:center; flex-wrap:wrap;">
+                  <span style="font-size:0.7rem; color:var(--text-muted); font-weight:600;">Partner:</span>
+                  <button class="partner-chip active" onclick="setClosePartnerFilter('ALL', this)">All</button>
+                  <button class="partner-chip" onclick="setClosePartnerFilter('PARTNER_BETA', this)">Beta (Clean)</button>
+                  <button class="partner-chip" onclick="setClosePartnerFilter('PARTNER_GAMMA', this)">Gamma (Breaks)</button>
+                  <button class="partner-chip" onclick="setClosePartnerFilter('PARTNER_ALPHA', this)">Alpha (Quarantined)</button>
+                </div>
+              </div>
+
               <div class="field-group">
-                <label class="field-label">Select Ingested Batch</label>
-                <select id="batchDropdown" class="field-input"></select>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+                  <label class="field-label" style="margin-bottom:0;">Select Ingested Batch</label>
+                  <span id="filteredBatchCount" style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono);">27 batches</span>
+                </div>
+                <select id="batchDropdown" class="field-input" onchange="runCloseEvaluate()"></select>
               </div>
               <div style="display:flex; gap:0.6rem; margin-top:1.25rem;">
                 <button class="btn btn-secondary" onclick="runCloseEvaluate()">Evaluate Close Equation</button>
@@ -1883,6 +1980,7 @@
       });
       const data = await res.json();
       log(data);
+      fetchQualityReport(dir);
       return data;
     }
 
@@ -1892,6 +1990,9 @@
       setBusy(true, b, 'Ingesting...');
       try {
         await stepIngestInternal();
+        await fetchBatches();
+        log('✅ Ingestion complete. All feeds normalized into canonical ledger.');
+        log('👉 Next Step: Click "3. Reconcile" (or "⚡ Run 5-Tier Reconcile") to match events and populate the Gate Scorecard.');
       } catch (e) { log('Error: ' + e); }
       finally { setBusy(false, b); }
     }
@@ -1910,8 +2011,71 @@
       setBusy(true, b, 'Reconciling...');
       try {
         await stepReconcileInternal();
+        await fetchExceptions();
+        await fetchClusters();
+        await stepEvaluateInternal();
+        await fetchBatches();
+        log('✅ 5-Tier Reconciliation complete! Scorecard, exceptions, and root-cause clusters updated.');
       } catch (e) { log('Error: ' + e); }
       finally { setBusy(false, b); }
+    }
+
+    async function autoReconcileAndEvaluate(btn) {
+      if (isBusy) return;
+      const b = btn || (window.event && window.event.currentTarget);
+      setBusy(true, b, 'Reconciling & Evaluating...');
+      log('Running 5-tier reconciliation engine across all ingested feeds...');
+      try {
+        await stepReconcileInternal();
+        await fetchExceptions();
+        await fetchClusters();
+        await fetchBatches();
+        log('Reconciliation complete. Now running Hard Gate evaluation...');
+        await stepEvaluateInternal();
+        navigate('scorecardPanel', document.querySelectorAll('.nav-item')[2]);
+      } catch (e) {
+        log('Error during auto-reconciliation: ' + e);
+      } finally {
+        setBusy(false, b);
+      }
+    }
+
+    function renderAwaitingReconState() {
+      const badgeGate = document.getElementById('badgeGate');
+      if (badgeGate) {
+        badgeGate.innerText = 'RECON PENDING';
+        badgeGate.style.background = '#fffbeb';
+        badgeGate.style.color = '#d97706';
+      }
+      const kpiGate = document.getElementById('kpiGateStatus');
+      if (kpiGate) {
+        kpiGate.innerHTML = '<span style="color:#d97706; font-size:1.05rem;">AWAITING RECON</span>';
+      }
+      const kpiStp = document.getElementById('kpiStp');
+      if (kpiStp) kpiStp.innerText = 'Pending Recon';
+      const tdExact = document.getElementById('tdExact');
+      if (tdExact) tdExact.innerText = 'Pending (Run Reconcile)';
+      const tdComposite = document.getElementById('tdComposite');
+      if (tdComposite) tdComposite.innerText = 'Pending (Run Reconcile)';
+      const tdTiming = document.getElementById('tdTiming');
+      if (tdTiming) tdTiming.innerText = 'Pending (Run Reconcile)';
+      const tdProbable = document.getElementById('tdProbable');
+      if (tdProbable) tdProbable.innerText = 'Pending (Run Reconcile)';
+      const tdUnresolved = document.getElementById('tdUnresolved');
+      if (tdUnresolved) tdUnresolved.innerText = 'Pending (Run Reconcile)';
+
+      const matrixTbody = document.getElementById('matrixTbody');
+      if (matrixTbody) {
+        matrixTbody.innerHTML = `
+          <tr><td colspan="6" style="text-align:center; padding:2rem 1rem;">
+            <div style="font-weight:700; font-size:0.96rem; color:#111827; margin-bottom:0.35rem;">⚠️ Feeds Ingested — 5-Tier Reconciliation Not Run Yet</div>
+            <div style="font-size:0.8rem; color:#6b7280; max-width:540px; margin:0 auto 1.25rem; line-height:1.45;">
+              Match decisions, straight-through processing rates, and confusion matrix are generated during <strong>5-Tier Reconciliation</strong> (matching Originator, Bank, and LMS). Click below to execute reconciliation now.
+            </div>
+            <button class="btn btn-primary" style="padding:0.5rem 1.25rem;" onclick="autoReconcileAndEvaluate(this)">⚡ Run 5-Tier Reconcile &amp; Populate Scorecard</button>
+          </td></tr>
+        `;
+      }
     }
 
     async function stepEvaluateInternal() {
@@ -1921,9 +2085,13 @@
       try {
         const res = await fetch(`/api/v1/evaluate?groundTruthPath=${encodeURIComponent(gt)}`, { headers: getAuth() });
         const data = await res.json();
+        if (!res.ok || data.error) {
+          log('Evaluation notice: ' + (data.error || res.statusText));
+          return data;
+        }
         if (data.phase1Gate && data.phase1Gate.gateStatus === 'NOT_EVALUATED') {
-          resetFrontendState();
-          log('Evaluation: Database has 0 match decisions. Run ingestion and reconciliation first.');
+          renderAwaitingReconState();
+          log('Evaluation: Database has 0 match decisions. Run 5-tier reconciliation to match events.');
           return data;
         }
         renderScorecard(data);
@@ -2111,16 +2279,145 @@
       } catch (e) { log(e); }
     }
 
+    let allCloseBatches = [];
+    let closeStatusFilter = 'ALL';
+    let closePartnerFilter = 'ALL';
+
+    function setCloseStatusFilter(status, btn) {
+      closeStatusFilter = status;
+      document.querySelectorAll('.status-chip').forEach(c => c.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderCloseDropdown(true);
+    }
+
+    function setClosePartnerFilter(partner, btn) {
+      closePartnerFilter = partner;
+      document.querySelectorAll('.partner-chip').forEach(c => c.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderCloseDropdown(true);
+    }
+
     async function fetchBatches() {
       try {
-        const res = await fetch('/api/v1/close/batches', { headers: getAuth() });
-        const list = await res.json();
-        const select = document.getElementById('batchDropdown');
-        select.innerHTML = '';
-        list.forEach(b => {
-          select.innerHTML += `<option value="${b.batchId}">${b.batchId} (${b.partnerCode} - ${b.sourceSystem})</option>`;
-        });
+        let list = [];
+        try {
+          const res = await fetch('/api/v1/close/batches-summary', { headers: getAuth() });
+          if (res.ok) list = await res.json();
+        } catch(e) {}
+
+        if (!list || list.length === 0) {
+          const res = await fetch('/api/v1/close/batches', { headers: getAuth() });
+          if (res.ok) {
+            const rawList = await res.json();
+            list = rawList.map(b => ({
+              batchId: b.batchId,
+              partnerCode: b.partnerCode,
+              sourceSystem: b.sourceSystem,
+              businessDate: b.businessDate,
+              declaredCount: b.declaredCount,
+              declaredAmountPaise: b.declaredAmountPaise,
+              status: b.status,
+              decision: b.status === 'QUARANTINED' ? 'HOLD' : 'UNKNOWN',
+              blockingCount: 0
+            }));
+          }
+        }
+
+        allCloseBatches = list || [];
+
+        // Compute counts
+        const totalCnt = allCloseBatches.length;
+        const closeCnt = allCloseBatches.filter(b => b.decision === 'CLOSE').length;
+        const quarCnt = allCloseBatches.filter(b => b.status === 'QUARANTINED').length;
+        const holdCnt = allCloseBatches.filter(b => b.decision === 'HOLD' && b.status !== 'QUARANTINED').length;
+
+        const countAll = document.getElementById('countAll');
+        const countClose = document.getElementById('countClose');
+        const countHold = document.getElementById('countHold');
+        const countQuar = document.getElementById('countQuar');
+        if (countAll) countAll.innerText = totalCnt;
+        if (countClose) countClose.innerText = closeCnt;
+        if (countHold) countHold.innerText = holdCnt;
+        if (countQuar) countQuar.innerText = quarCnt;
+
+        renderCloseDropdown(false);
       } catch (e) { log(e); }
+    }
+
+    function renderCloseDropdown(autoEvaluate = true) {
+      const select = document.getElementById('batchDropdown');
+      if (!select) return;
+      const currentSelected = select.value;
+
+      let filtered = allCloseBatches;
+      if (closeStatusFilter === 'CLOSE') {
+        filtered = filtered.filter(b => b.decision === 'CLOSE');
+      } else if (closeStatusFilter === 'HOLD') {
+        filtered = filtered.filter(b => b.decision === 'HOLD' && b.status !== 'QUARANTINED');
+      } else if (closeStatusFilter === 'QUARANTINED') {
+        filtered = filtered.filter(b => b.status === 'QUARANTINED');
+      }
+
+      if (closePartnerFilter !== 'ALL') {
+        filtered = filtered.filter(b => b.partnerCode === closePartnerFilter);
+      }
+
+      const countBadge = document.getElementById('filteredBatchCount');
+      if (countBadge) countBadge.innerText = `${filtered.length} of ${allCloseBatches.length} batches`;
+
+      const summaryBadge = document.getElementById('closeFilterSummary');
+      if (summaryBadge) {
+        if (closeStatusFilter === 'CLOSE') summaryBadge.innerText = `Ready to Close (${filtered.length})`;
+        else if (closeStatusFilter === 'HOLD') summaryBadge.innerText = `On Hold - Breaks (${filtered.length})`;
+        else if (closeStatusFilter === 'QUARANTINED') summaryBadge.innerText = `Quarantined (${filtered.length})`;
+        else summaryBadge.innerText = `All Batches (${filtered.length})`;
+      }
+
+      select.innerHTML = '';
+      if (filtered.length === 0) {
+        select.innerHTML = '<option value="">No batches match filter</option>';
+        const box = document.getElementById('closeDetailsBox');
+        if (box) {
+          box.innerHTML = `
+            <div style="text-align:center; padding:1.5rem; color:var(--text-muted); font-family:var(--font-stack);">
+              <div style="font-size:1.5rem; margin-bottom:0.4rem;">🔍</div>
+              <div style="font-weight:600; font-size:0.9rem; color:var(--text-main);">No Batches Match Selected Filter</div>
+              <div style="font-size:0.75rem; margin-top:0.2rem;">Try switching filter to "All" or a different partner.</div>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      filtered.forEach(b => {
+        let icon = '🟢 [CLOSE]';
+        let detail = 'Clean';
+        if (b.status === 'QUARANTINED') {
+          icon = '⚠️ [QUARANTINED]';
+          detail = 'Header Drift';
+        } else if (b.decision === 'HOLD') {
+          icon = '🔴 [HOLD]';
+          detail = b.blockingCount > 0 ? `${b.blockingCount} breaks` : 'Unresolved';
+        }
+
+        const inr = (b.declaredAmountPaise / 100).toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+        const partnerClean = (b.partnerCode || '').replace('PARTNER_', '');
+        const opt = document.createElement('option');
+        opt.value = b.batchId;
+        opt.innerText = `${icon} ${b.batchId} — ${partnerClean} · ${b.sourceSystem} · ${inr} (${detail})`;
+        select.appendChild(opt);
+      });
+
+      const stillExists = filtered.some(b => b.batchId === currentSelected);
+      if (stillExists) {
+        select.value = currentSelected;
+      } else {
+        select.value = filtered[0].batchId;
+      }
+
+      if (autoEvaluate && select.value) {
+        runCloseEvaluate();
+      }
     }
 
     async function runCloseEvaluate(btn) {
@@ -2138,21 +2435,100 @@
         activeCloseId = summary.closeId;
         const box = document.getElementById('closeDetailsBox');
         const inr = val => (val / 100).toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+
+        let blockingHtml = '';
+        if (summary.decision === 'HOLD') {
+          let blockingList = [];
+          try {
+            blockingList = JSON.parse(summary.blockingExceptions || '[]');
+          } catch(e) {}
+          
+          if (summary.quarantinedPaise > 0) {
+            blockingHtml = `
+              <div style="margin-top:0.75rem; padding:0.6rem; background:#fef2f2; border-left:3px solid #dc2626; border-radius:4px;">
+                <div style="font-weight:700; color:#dc2626; font-size:0.84rem;">⚠️ Batch Quarantined during Ingestion</div>
+                <div style="font-size:0.75rem; color:#4b5563; margin-top:0.2rem;">Declared batch header totals diverged from record sum or schema violation detected. Quarantined batches are strictly held from settlement close.</div>
+              </div>
+            `;
+          } else if (blockingList.length > 0) {
+            blockingHtml = `
+              <div style="margin-top:0.75rem; padding:0.6rem; background:#fffbeb; border-left:3px solid #d97706; border-radius:4px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                  <span style="font-weight:700; color:#b45309; font-size:0.82rem;">⚠️ ${blockingList.length} Blocking Exception(s) in this Batch</span>
+                  <button class="btn btn-secondary" style="padding:0.2rem 0.6rem; font-size:0.72rem; background:#ffffff;" onclick="overrideAllBatchExceptions('${batchId}')">⚡ Override All (Maker)</button>
+                </div>
+                <div style="max-height:150px; overflow-y:auto; font-size:0.74rem;">
+                  <table style="width:100%; border-collapse:collapse;">
+                    <thead><tr style="color:#6b7280; text-align:left; border-bottom:1px solid #fed7aa;"><th>Event</th><th>Type</th><th>Exposure</th><th>Owner</th><th>Action</th></tr></thead>
+                    <tbody>
+                      ${blockingList.map(exc => `
+                        <tr style="border-bottom:1px solid #ffedd5;">
+                          <td style="font-family:var(--font-mono); font-size:0.7rem;">${exc.businessEventId || '--'}</td>
+                          <td><span class="pill pill-yellow" style="font-size:0.65rem;">${exc.classification}</span></td>
+                          <td style="font-weight:600;">${inr(exc.exposureAmountPaise)}</td>
+                          <td style="color:#6b7280; font-size:0.7rem;">${exc.ownerRole}</td>
+                          <td><button class="btn btn-secondary" style="padding:0.1rem 0.4rem; font-size:0.65rem;" onclick="openModal('${exc.exceptionId}')">Override</button></td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `;
+          }
+        }
+
         box.innerHTML = `
-          <div style="font-size:1.05rem; font-weight:700; margin-bottom:0.4rem; color:${summary.decision === 'CLOSE' ? '#059669' : '#dc2626'};">
-            DECISION: ${summary.decision}
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+            <span style="font-size:1.15rem; font-weight:800; color:${summary.decision === 'CLOSE' ? '#059669' : '#dc2626'};">
+              DECISION: ${summary.decision}
+            </span>
+            <span class="pill ${summary.decision === 'CLOSE' ? 'pill-green' : 'pill-red'}">
+              ${summary.decision === 'CLOSE' ? 'BALANCED &amp; READY TO CLOSE' : 'HELD BY CONTROL EQUATION'}
+            </span>
           </div>
-          <div>Opening Position : ${inr(summary.openingPositionPaise)}</div>
-          <div>Valid Movements  : ${inr(summary.validMovementsPaise)}</div>
-          <div>Reversals        : ${inr(summary.reversalsPaise)}</div>
-          <div>Closing Position : ${inr(summary.closingPositionPaise)}</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; margin-bottom:0.6rem; background:#f9fafb; padding:0.6rem; border-radius:6px; border:1px solid #e5e7eb; font-size:0.78rem;">
+            <div>Opening Position: <strong>${inr(summary.openingPositionPaise)}</strong></div>
+            <div>Valid Movements: <strong>${inr(summary.validMovementsPaise)}</strong></div>
+            <div>Reversals: <strong>${inr(summary.reversalsPaise)}</strong></div>
+            <div>Closing Position: <strong>${inr(summary.closingPositionPaise)}</strong></div>
+          </div>
           <hr style="border:0; border-top:1px solid #e5e7eb; margin:0.4rem 0;">
-          <div>Matched Value    : ${inr(summary.matchedPaise)}</div>
-          <div>Unaccounted Delta: <span style="font-weight:700; color:${summary.unaccountedPaise === 0 ? '#059669' : '#dc2626'};">${inr(summary.unaccountedPaise)}</span></div>
-          <div style="margin-top:0.4rem; font-size:0.75rem;">Evaluated By: ${summary.decidedBy}</div>
+          <div style="line-height:1.7; font-size:0.8rem;">
+            <div>Matched Value: <strong style="color:#059669;">${inr(summary.matchedPaise)}</strong></div>
+            <div>Timing Pending: <strong>${inr(summary.timingPendingPaise)}</strong></div>
+            <div>Unresolved Exceptions: <strong style="color:${summary.unresolvedExceptionPaise === 0 ? '#059669' : '#dc2626'};">${inr(summary.unresolvedExceptionPaise)}</strong></div>
+            <div>Quarantined Amount: <strong style="color:${summary.quarantinedPaise === 0 ? '#059669' : '#dc2626'};">${inr(summary.quarantinedPaise)}</strong></div>
+            <div>Unaccounted Delta: <strong style="color:${summary.unaccountedPaise === 0 ? '#059669' : '#dc2626'};">${inr(summary.unaccountedPaise)}</strong></div>
+          </div>
+          ${blockingHtml}
+          <div style="margin-top:0.6rem; font-size:0.74rem; color:#6b7280; border-top:1px solid #f3f4f6; padding-top:0.3rem;">
+            Batch: <code>${batchId}</code> &bull; Evaluated By: <strong>${summary.decidedBy}</strong>
+          </div>
         `;
       } catch (e) { log(e); }
       finally { setBusy(false, b); }
+    }
+
+    async function overrideAllBatchExceptions(batchId) {
+      if (!batchId) return;
+      const reason = prompt('Enter mandatory override justification for batch exceptions (Audit Trail):', 'Authorized exception - verified bank settlement and ledger consistency');
+      if (!reason) return;
+      log(`Overriding all blocking exceptions for batch ${batchId}...`);
+      try {
+        const res = await fetch(`/api/v1/close/override-batch?batchId=${encodeURIComponent(batchId)}&reason=${encodeURIComponent(reason)}`, {
+          method: 'POST',
+          headers: getAuth()
+        });
+        const data = await res.json();
+        log(`Cleared ${data.overriddenCount} exception(s). Batch decision is now: ${data.decision}`);
+        await fetchExceptions();
+        await fetchClusters();
+        await fetchBatches();
+        await runCloseEvaluate();
+      } catch (e) {
+        log('Error overriding batch exceptions: ' + e);
+      }
     }
 
     async function runCloseApprove(btn) {

@@ -76,10 +76,12 @@ public class GeneratorController {
 
         Path path = Path.of(outputDir, "data_quality_report.md");
         if (!Files.exists(path)) {
-            if (Files.exists(Path.of("./data/generated/data_quality_report.md"))) {
-                path = Path.of("./data/generated/data_quality_report.md");
+            if (Files.exists(Path.of("./data/seed_clean/data_quality_report.md"))) {
+                path = Path.of("./data/seed_clean/data_quality_report.md");
             } else if (Files.exists(Path.of("./data/seed_a/data_quality_report.md"))) {
                 path = Path.of("./data/seed_a/data_quality_report.md");
+            } else if (Files.exists(Path.of("./data/generated/data_quality_report.md"))) {
+                path = Path.of("./data/generated/data_quality_report.md");
             }
         }
 

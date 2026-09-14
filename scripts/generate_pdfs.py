@@ -256,3 +256,4 @@ if __name__ == "__main__":
     for md, pdf in docs:
         if os.path.exists(md):
             convert_md_to_pdf(md, pdf)
+

@@ -221,3 +221,4 @@ $$\text{Equation 2: } \text{Total Instructed Paise} = \text{Matched} + \text{Tim
 
 ---
 *Vivriti Co-Lending Control Tower Architectural Documentation — Certified Production Ready.*
+

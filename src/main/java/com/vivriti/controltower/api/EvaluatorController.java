@@ -37,19 +37,33 @@ public class EvaluatorController {
                              "Phase 1 Gate metrics (0 false matches), STP %, control totals, and Phase 2 Intelligence metrics.")
     public ResponseEntity<Map<String, Object>> evaluate(
             @RequestParam(defaultValue = "./data/generated") String dataDir,
-            @RequestParam(defaultValue = "./data/generated/ground_truth/ground_truth.json") String groundTruthPath) {
+            @RequestParam(defaultValue = "./data/generated/groundtruth/ground_truth.json") String groundTruthPath) {
 
         try {
             Path gtPath = Path.of(groundTruthPath);
             if (!Files.exists(gtPath)) {
-                // Try default location relative to data dir
+                gtPath = Path.of(dataDir, "groundtruth", "ground_truth.json");
+            }
+            if (!Files.exists(gtPath)) {
                 gtPath = Path.of(dataDir, "ground_truth", "ground_truth.json");
+            }
+            if (!Files.exists(gtPath)) {
+                gtPath = Path.of("./data/seed_clean/groundtruth/ground_truth.json");
+            }
+            if (!Files.exists(gtPath)) {
+                gtPath = Path.of("./data/seed_a/groundtruth/ground_truth.json");
+            }
+            if (!Files.exists(gtPath)) {
+                gtPath = Path.of("./data/generated/groundtruth/ground_truth.json");
             }
             if (!Files.exists(gtPath)) {
                 return ResponseEntity.badRequest().body(Map.of(
                         "error", "Ground truth file not found",
                         "searchedPaths", List.of(groundTruthPath,
-                                Path.of(dataDir, "ground_truth", "ground_truth.json").toString())
+                                Path.of(dataDir, "groundtruth", "ground_truth.json").toString(),
+                                Path.of(dataDir, "ground_truth", "ground_truth.json").toString(),
+                                "./data/seed_clean/groundtruth/ground_truth.json",
+                                "./data/seed_a/groundtruth/ground_truth.json")
                 ));
             }
 

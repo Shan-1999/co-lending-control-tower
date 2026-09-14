@@ -12,4 +12,7 @@ public interface CanonicalEventRepository extends JpaRepository<CanonicalEventEn
     List<CanonicalEventEntity> findByBusinessEventId(String businessEventId);
     List<CanonicalEventEntity> findBySourceSystem(String sourceSystem);
     List<CanonicalEventEntity> findBySourceSystemAndCanonicalStatus(String sourceSystem, String status);
+
+    @org.springframework.data.jpa.repository.Query("SELECT c FROM CanonicalEventEntity c WHERE c.rawRecord.batch.batchId = :batchId")
+    List<CanonicalEventEntity> findByBatchId(@org.springframework.data.repository.query.Param("batchId") String batchId);
 }

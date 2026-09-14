@@ -69,6 +69,26 @@ public class AnomalyInjector {
 
         Collections.shuffle(assignedAnomalies, random);
 
+        // Ensure Partner Beta Day 1 remains clean for balanced batch close demonstration
+        // by transferring any anomalies assigned to Partner Beta Day 1 to other scenarios
+        for (int i = 0; i < totalLoans; i++) {
+            LoanScenario s = scenarios.get(i);
+            if (s.getBusinessDay() == 1 && "PARTNER_BETA".equals(s.getPartnerCode())) {
+                AnomalyType t = assignedAnomalies.get(i);
+                if (t != null) {
+                    for (int j = 0; j < totalLoans; j++) {
+                        LoanScenario target = scenarios.get(j);
+                        if (!(target.getBusinessDay() == 1 && "PARTNER_BETA".equals(target.getPartnerCode()))
+                                && assignedAnomalies.get(j) == null) {
+                            assignedAnomalies.set(j, t);
+                            assignedAnomalies.set(i, null);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         for (int i = 0; i < totalLoans; i++) {
             LoanScenario scenario = scenarios.get(i);
             AnomalyType type = assignedAnomalies.get(i);

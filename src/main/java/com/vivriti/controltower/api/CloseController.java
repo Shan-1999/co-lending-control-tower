@@ -40,6 +40,12 @@ public class CloseController {
         return ResponseEntity.ok(sourceBatchRepository.findAll());
     }
 
+    @GetMapping("/batches-summary")
+    @Operation(summary = "List all batches with close decision summary and blocking counts")
+    public ResponseEntity<List<com.vivriti.controltower.close.BatchSummaryDTO>> listBatchSummaries() {
+        return ResponseEntity.ok(closeService.getBatchSummaries());
+    }
+
     @PostMapping("/evaluate")
     @Operation(summary = "Evaluate close decision for a batch",
                description = "Runs the control equation engine on a batch to determine CLOSE or HOLD. " +
@@ -90,5 +96,22 @@ public class CloseController {
         return closeSummaryRepository.findById(closeId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/override-batch")
+    @Operation(summary = "Override all blocking exceptions for a batch",
+               description = "Allows an Operator (Maker) to authorize and clear all open exceptions in a batch with an auditable justification")
+    public ResponseEntity<Map<String, Object>> overrideBatch(
+            @RequestParam String batchId,
+            @RequestParam(defaultValue = "Authorized exception - verified bank settlement and ledger consistency") String reason,
+            Principal principal) {
+        int count = closeService.overrideBatchExceptions(batchId, reason, principal.getName());
+        CloseSummaryEntity summary = closeService.evaluateClose(batchId, principal.getName());
+        return ResponseEntity.ok(Map.of(
+                "batchId", batchId,
+                "overriddenCount", count,
+                "decision", summary.getDecision(),
+                "summary", summary
+        ));
     }
 }

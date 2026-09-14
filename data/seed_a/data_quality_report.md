@@ -2,25 +2,25 @@
 
 ## Overview
 - **Total Loans:** 2000
-- **Total Records Generated:** 5972
-- **Overall Anomaly Rate:** 9.40%
+- **Total Records Generated:** 5987
+- **Overall Anomaly Rate:** 5.00%
 
 ## Records by Source System
-- **BANK:** 2012
-- **LMS:** 1970
-- **ORIGINATOR:** 1990
+- **BANK:** 2011
+- **LMS:** 1982
+- **ORIGINATOR:** 1994
 
 ## Anomalies by Type
-- **MISSING_BANK_LEG:** 20
-- **MISSING_LMS_LEG:** 20
-- **DUPLICATE_BANK_EVENT:** 16
-- **AMOUNT_MISMATCH:** 40
-- **STATUS_MISMATCH:** 16
-- **TIMING_DIFFERENCE:** 30
-- **COMPOSITE_SPLIT:** 16
-- **ORPHAN_REVERSAL:** 10
-- **SCHEMA_BREACH:** 10
-- **BATCH_TOTAL_MISMATCH:** 10
+- **MISSING_BANK_LEG:** 9
+- **MISSING_LMS_LEG:** 12
+- **DUPLICATE_BANK_EVENT:** 10
+- **AMOUNT_MISMATCH:** 11
+- **STATUS_MISMATCH:** 10
+- **TIMING_DIFFERENCE:** 8
+- **COMPOSITE_SPLIT:** 10
+- **ORPHAN_REVERSAL:** 6
+- **SCHEMA_BREACH:** 9
+- **BATCH_TOTAL_MISMATCH:** 15
 
 ## Distribution by Business Day
 - **Day 1:** 658 loans
@@ -33,6 +33,6 @@
 - **PARTNER_BETA:** 649 loans
 
 ## Total Paise by Source System
-- **ORIGINATOR:** 1071696684
-- **BANK:** 1075317082
-- **LMS:** 1069514183
+- **ORIGINATOR:** 1075669538
+- **BANK:** 1081328404
+- **LMS:** 1076658394

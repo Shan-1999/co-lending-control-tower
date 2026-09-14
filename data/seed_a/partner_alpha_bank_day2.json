@@ -1,20 +1,10 @@
 {
   "batchId" : "B-PARTNER_ALPHA-BANK-20240116",
   "businessDate" : "2024-01-16",
-  "declaredAmountPaise" : 118383323,
-  "declaredCount" : 228,
+  "declaredAmountPaise" : 118063079,
+  "declaredCount" : 226,
   "partnerCode" : "PARTNER_ALPHA",
   "records" : [ {
-    "amountPaise" : 161403,
-    "businessEventId" : "EVT-LOAN-000011",
-    "correlationId" : "CORR-LOAN-000011",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-000011",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T09:40Z",
-    "utrReference" : "UTR-LOAN-000011-744"
-  }, {
     "amountPaise" : 594031,
     "businessEventId" : "EVT-LOAN-000015",
     "correlationId" : "CORR-LOAN-000015",
@@ -72,7 +62,7 @@
     "loanReference" : "LOAN-000052",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T18:30Z",
+    "timestamp" : "2024-01-16T13:25Z",
     "utrReference" : "UTR-LOAN-000052-94"
   }, {
     "amountPaise" : 535990,
@@ -232,7 +222,7 @@
     "loanReference" : "LOAN-000136",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T18:30Z",
+    "timestamp" : "2024-01-16T15:03Z",
     "utrReference" : "UTR-LOAN-000136-769"
   }, {
     "amountPaise" : 574888,
@@ -245,15 +235,14 @@
     "timestamp" : "2024-01-16T15:42Z",
     "utrReference" : "UTR-LOAN-000147-927"
   }, {
-    "amountPaise" : 10000,
-    "businessEventId" : "EVT-REV-LOAN-000152",
-    "correlationId" : "CORR-REV-LOAN-000152",
-    "eventType" : "REVERSAL",
+    "amountPaise" : 142722,
+    "businessEventId" : "EVT-LOAN-000152",
+    "correlationId" : "CORR-LOAN-000152",
+    "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000152",
-    "reversalReference" : "ORPHAN-REV-LOAN-000152",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T10:03Z",
+    "timestamp" : "2024-01-16T09:10Z",
     "utrReference" : "UTR-LOAN-000152-681"
   }, {
     "amountPaise" : 812363,
@@ -296,25 +285,15 @@
     "timestamp" : "2024-01-16T10:44Z",
     "utrReference" : "UTR-LOAN-000230-481"
   }, {
-    "amountPaise" : 248019,
-    "businessEventId" : "EVT-LOAN-000233-S0",
+    "amountPaise" : 496038,
+    "businessEventId" : "EVT-LOAN-000233",
     "correlationId" : "CORR-LOAN-000233",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000233",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T12:51Z",
-    "utrReference" : "UTR-LOAN-000233-535-0"
-  }, {
-    "amountPaise" : 248019,
-    "businessEventId" : "EVT-LOAN-000233-S1",
-    "correlationId" : "CORR-LOAN-000233",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-000233",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T12:56Z",
-    "utrReference" : "UTR-LOAN-000233-535-1"
+    "utrReference" : "UTR-LOAN-000233-535"
   }, {
     "amountPaise" : 874223,
     "businessEventId" : "EVT-LOAN-000247",
@@ -326,25 +305,15 @@
     "timestamp" : "2024-01-16T10:35Z",
     "utrReference" : "UTR-LOAN-000247-366"
   }, {
-    "amountPaise" : 468811,
-    "businessEventId" : "EVT-LOAN-000250-S0",
+    "amountPaise" : 937622,
+    "businessEventId" : "EVT-LOAN-000250",
     "correlationId" : "CORR-LOAN-000250",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000250",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T11:45Z",
-    "utrReference" : "UTR-LOAN-000250-463-0"
-  }, {
-    "amountPaise" : 468811,
-    "businessEventId" : "EVT-LOAN-000250-S1",
-    "correlationId" : "CORR-LOAN-000250",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-000250",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T11:50Z",
-    "utrReference" : "UTR-LOAN-000250-463-1"
+    "utrReference" : "UTR-LOAN-000250-463"
   }, {
     "amountPaise" : 748977,
     "businessEventId" : "EVT-LOAN-000253",
@@ -353,7 +322,7 @@
     "loanReference" : "LOAN-000253",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T18:30Z",
+    "timestamp" : "2024-01-16T12:04Z",
     "utrReference" : "UTR-LOAN-000253-889"
   }, {
     "amountPaise" : 848206,
@@ -462,7 +431,7 @@
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000333",
     "sourceSystem" : "BANK",
-    "status" : "FAILED",
+    "status" : "SUCCESS",
     "timestamp" : "2024-01-16T17:17Z",
     "utrReference" : "UTR-LOAN-000333-687"
   }, {
@@ -502,7 +471,7 @@
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000384",
     "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
+    "status" : "FAILED",
     "timestamp" : "2024-01-16T14:05Z",
     "utrReference" : "UTR-LOAN-000384-305"
   }, {
@@ -616,16 +585,6 @@
     "timestamp" : "2024-01-16T12:31Z",
     "utrReference" : "UTR-LOAN-000472-148"
   }, {
-    "amountPaise" : 556665,
-    "businessEventId" : "EVT-LOAN-000472-DUP",
-    "correlationId" : "CORR-LOAN-000472",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-000472",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T12:31Z",
-    "utrReference" : "UTR-LOAN-000472-148"
-  }, {
     "amountPaise" : 535395,
     "businessEventId" : "EVT-LOAN-000476",
     "correlationId" : "CORR-LOAN-000476",
@@ -638,6 +597,16 @@
   }, {
     "amountPaise" : 657996,
     "businessEventId" : "EVT-LOAN-000489",
+    "correlationId" : "CORR-LOAN-000489",
+    "eventType" : "SETTLEMENT_DEBIT",
+    "loanReference" : "LOAN-000489",
+    "sourceSystem" : "BANK",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T14:00Z",
+    "utrReference" : "UTR-LOAN-000489-462"
+  }, {
+    "amountPaise" : 657996,
+    "businessEventId" : "EVT-LOAN-000489-DUP",
     "correlationId" : "CORR-LOAN-000489",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000489",
@@ -686,25 +655,25 @@
     "timestamp" : "2024-01-16T17:41Z",
     "utrReference" : "UTR-LOAN-000515-618"
   }, {
-    "amountPaise" : 494184,
-    "businessEventId" : "EVT-LOAN-000532-S0",
+    "amountPaise" : 229400,
+    "businessEventId" : "EVT-LOAN-000530",
+    "correlationId" : "CORR-LOAN-000530",
+    "eventType" : "SETTLEMENT_DEBIT",
+    "loanReference" : "LOAN-000530",
+    "sourceSystem" : "BANK",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T10:04Z",
+    "utrReference" : "UTR-LOAN-000530-878"
+  }, {
+    "amountPaise" : 988368,
+    "businessEventId" : "EVT-LOAN-000532",
     "correlationId" : "CORR-LOAN-000532",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000532",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T16:38Z",
-    "utrReference" : "UTR-LOAN-000532-399-0"
-  }, {
-    "amountPaise" : 494184,
-    "businessEventId" : "EVT-LOAN-000532-S1",
-    "correlationId" : "CORR-LOAN-000532",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-000532",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T16:43Z",
-    "utrReference" : "UTR-LOAN-000532-399-1"
+    "utrReference" : "UTR-LOAN-000532-399"
   }, {
     "amountPaise" : 171160,
     "businessEventId" : "EVT-LOAN-000541",
@@ -883,7 +852,7 @@
     "loanReference" : "LOAN-000665",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T18:30Z",
+    "timestamp" : "2024-01-16T09:57Z",
     "utrReference" : "UTR-LOAN-000665-636"
   }, {
     "amountPaise" : 409819,
@@ -956,14 +925,15 @@
     "timestamp" : "2024-01-16T14:51Z",
     "utrReference" : "UTR-LOAN-000714-535"
   }, {
-    "amountPaise" : 642700,
-    "businessEventId" : "EVT-LOAN-000740",
-    "correlationId" : "CORR-LOAN-000740",
-    "eventType" : "SETTLEMENT_DEBIT",
+    "amountPaise" : 10000,
+    "businessEventId" : "EVT-REV-LOAN-000740",
+    "correlationId" : "CORR-REV-LOAN-000740",
+    "eventType" : "REVERSAL",
     "loanReference" : "LOAN-000740",
+    "reversalReference" : "ORPHAN-REV-LOAN-000740",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T12:25Z",
+    "timestamp" : "2024-01-16T12:41Z",
     "utrReference" : "UTR-LOAN-000740-131"
   }, {
     "amountPaise" : 992959,
@@ -998,16 +968,6 @@
   }, {
     "amountPaise" : 351416,
     "businessEventId" : "EVT-LOAN-000802",
-    "correlationId" : "CORR-LOAN-000802",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-000802",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T15:32Z",
-    "utrReference" : "UTR-LOAN-000802-681"
-  }, {
-    "amountPaise" : 351416,
-    "businessEventId" : "EVT-LOAN-000802-DUP",
     "correlationId" : "CORR-LOAN-000802",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-000802",
@@ -1296,15 +1256,25 @@
     "timestamp" : "2024-01-16T10:24Z",
     "utrReference" : "UTR-LOAN-001008-747"
   }, {
-    "amountPaise" : 667329,
-    "businessEventId" : "EVT-LOAN-001012",
+    "amountPaise" : 333664,
+    "businessEventId" : "EVT-LOAN-001012-S0",
     "correlationId" : "CORR-LOAN-001012",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-001012",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T17:32Z",
-    "utrReference" : "UTR-LOAN-001012-801"
+    "utrReference" : "UTR-LOAN-001012-801-0"
+  }, {
+    "amountPaise" : 333665,
+    "businessEventId" : "EVT-LOAN-001012-S1",
+    "correlationId" : "CORR-LOAN-001012",
+    "eventType" : "SETTLEMENT_DEBIT",
+    "loanReference" : "LOAN-001012",
+    "sourceSystem" : "BANK",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T17:37Z",
+    "utrReference" : "UTR-LOAN-001012-801-1"
   }, {
     "amountPaise" : 316621,
     "businessEventId" : "EVT-LOAN-001013",
@@ -1473,7 +1443,7 @@
     "loanReference" : "LOAN-001227",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T18:30Z",
+    "timestamp" : "2024-01-16T11:55Z",
     "utrReference" : "UTR-LOAN-001227-861"
   }, {
     "amountPaise" : 754166,
@@ -1605,6 +1575,16 @@
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T10:38Z",
     "utrReference" : "UTR-LOAN-001332-96"
+  }, {
+    "amountPaise" : 933828,
+    "businessEventId" : "EVT-LOAN-001350",
+    "correlationId" : "CORR-LOAN-001350",
+    "eventType" : "SETTLEMENT_DEBIT",
+    "loanReference" : "LOAN-001350",
+    "sourceSystem" : "BANK",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T09:35Z",
+    "utrReference" : "UTR-LOAN-001350-43"
   }, {
     "amountPaise" : 455694,
     "businessEventId" : "EVT-LOAN-001359",
@@ -2006,15 +1986,25 @@
     "timestamp" : "2024-01-16T14:09Z",
     "utrReference" : "UTR-LOAN-001716-814"
   }, {
-    "amountPaise" : 767109,
-    "businessEventId" : "EVT-LOAN-001719",
+    "amountPaise" : 383554,
+    "businessEventId" : "EVT-LOAN-001719-S0",
     "correlationId" : "CORR-LOAN-001719",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-001719",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T12:12Z",
-    "utrReference" : "UTR-LOAN-001719-188"
+    "utrReference" : "UTR-LOAN-001719-188-0"
+  }, {
+    "amountPaise" : 383555,
+    "businessEventId" : "EVT-LOAN-001719-S1",
+    "correlationId" : "CORR-LOAN-001719",
+    "eventType" : "SETTLEMENT_DEBIT",
+    "loanReference" : "LOAN-001719",
+    "sourceSystem" : "BANK",
+    "status" : "SUCCESS",
+    "timestamp" : "2024-01-16T12:17Z",
+    "utrReference" : "UTR-LOAN-001719-188-1"
   }, {
     "amountPaise" : 359879,
     "businessEventId" : "EVT-LOAN-001740",
@@ -2106,25 +2096,15 @@
     "timestamp" : "2024-01-16T13:01Z",
     "utrReference" : "UTR-LOAN-001843-59"
   }, {
-    "amountPaise" : 317427,
-    "businessEventId" : "EVT-LOAN-001849-S0",
+    "amountPaise" : 634855,
+    "businessEventId" : "EVT-LOAN-001849",
     "correlationId" : "CORR-LOAN-001849",
     "eventType" : "SETTLEMENT_DEBIT",
     "loanReference" : "LOAN-001849",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
     "timestamp" : "2024-01-16T14:15Z",
-    "utrReference" : "UTR-LOAN-001849-878-0"
-  }, {
-    "amountPaise" : 317428,
-    "businessEventId" : "EVT-LOAN-001849-S1",
-    "correlationId" : "CORR-LOAN-001849",
-    "eventType" : "SETTLEMENT_DEBIT",
-    "loanReference" : "LOAN-001849",
-    "sourceSystem" : "BANK",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T14:20Z",
-    "utrReference" : "UTR-LOAN-001849-878-1"
+    "utrReference" : "UTR-LOAN-001849-878"
   }, {
     "amountPaise" : 188850,
     "businessEventId" : "EVT-LOAN-001850",
@@ -2236,14 +2216,15 @@
     "timestamp" : "2024-01-16T13:58Z",
     "utrReference" : "UTR-LOAN-001977-206"
   }, {
-    "amountPaise" : 582006,
-    "businessEventId" : "EVT-LOAN-001978",
-    "correlationId" : "CORR-LOAN-001978",
-    "eventType" : "SETTLEMENT_DEBIT",
+    "amountPaise" : 10000,
+    "businessEventId" : "EVT-REV-LOAN-001978",
+    "correlationId" : "CORR-REV-LOAN-001978",
+    "eventType" : "REVERSAL",
     "loanReference" : "LOAN-001978",
+    "reversalReference" : "ORPHAN-REV-LOAN-001978",
     "sourceSystem" : "BANK",
     "status" : "SUCCESS",
-    "timestamp" : "2024-01-16T13:00Z",
+    "timestamp" : "2024-01-16T13:46Z",
     "utrReference" : "UTR-LOAN-001978-699"
   }, {
     "amountPaise" : 754280,

@@ -1,8 +1,8 @@
 {
   "batchId" : "B-PARTNER_ALPHA-ORIGINATOR-20240117",
   "businessDate" : "2024-01-17",
-  "declaredAmountPaise" : 104456052,
-  "declaredCount" : 196,
+  "declaredAmountPaise" : 103877104,
+  "declaredCount" : 194,
   "partnerCode" : "PARTNER_ALPHA",
   "records" : [ {
     "amountPaise" : 336627,
@@ -1134,26 +1134,6 @@
     "status" : "SUCCESS",
     "timestamp" : "2024-01-17T14:49Z",
     "utrReference" : "UTR-LOAN-001132-571"
-  }, {
-    "amountPaise" : 706191,
-    "businessEventId" : "EVT-LOAN-001136",
-    "correlationId" : "CORR-LOAN-001136",
-    "eventType" : "DISBURSEMENT_INSTRUCTION",
-    "loanReference" : "LOAN-001136",
-    "sourceSystem" : "ORIGINATOR",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-17T16:05Z",
-    "utrReference" : "UTR-LOAN-001136-101"
-  }, {
-    "amountPaise" : 372757,
-    "businessEventId" : "EVT-LOAN-001139",
-    "correlationId" : "CORR-LOAN-001139",
-    "eventType" : "DISBURSEMENT_INSTRUCTION",
-    "loanReference" : "LOAN-001139",
-    "sourceSystem" : "ORIGINATOR",
-    "status" : "SUCCESS",
-    "timestamp" : "2024-01-17T10:32Z",
-    "utrReference" : "UTR-LOAN-001139-732"
   }, {
     "amountPaise" : 441409,
     "businessEventId" : "EVT-LOAN-001160",

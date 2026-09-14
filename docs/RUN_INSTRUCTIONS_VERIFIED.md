@@ -164,3 +164,4 @@ All actuator and documentation endpoints are exposed and operational:
 
 ---
 *Vivriti Co-Lending Control Tower Operations Runbook — Verified Clean Environment.*
+

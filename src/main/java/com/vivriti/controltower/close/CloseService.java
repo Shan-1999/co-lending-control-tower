@@ -48,10 +48,7 @@ public class CloseService {
         SourceBatchEntity batch = batchRepository.findById(batchId)
                 .orElseThrow(() -> new IllegalArgumentException("Batch not found"));
 
-        var allBlocking = blockingEvaluator.evaluate(batchId);
-        List<ReconciliationExceptionEntity> partnerBlocking = allBlocking.stream()
-                .filter(e -> batch.getPartnerCode().equalsIgnoreCase(e.getPartnerCode()))
-                .toList();
+        var batchBlocking = blockingEvaluator.evaluate(batchId);
 
         long matched = batch.getDeclaredAmountPaise();
         long timing = 0;
@@ -61,8 +58,8 @@ public class CloseService {
         if ("QUARANTINED".equalsIgnoreCase(batch.getStatus())) {
             quarantined = batch.getDeclaredAmountPaise();
             matched = 0;
-        } else if (!partnerBlocking.isEmpty()) {
-            unresolved = partnerBlocking.stream()
+        } else if (!batchBlocking.isEmpty()) {
+            unresolved = batchBlocking.stream()
                     .mapToLong(ReconciliationExceptionEntity::getExposureAmountPaise)
                     .sum();
             unresolved = Math.min(unresolved, batch.getDeclaredAmountPaise());
@@ -70,7 +67,7 @@ public class CloseService {
         }
 
         CloseEquationResult eq = equationEvaluator.evaluate(batch, 0, matched, timing, unresolved, quarantined);
-        List<ReconciliationExceptionEntity> blocking = partnerBlocking.isEmpty() ? allBlocking : partnerBlocking;
+        List<ReconciliationExceptionEntity> blocking = batchBlocking;
 
         CloseSummaryEntity summary = new CloseSummaryEntity();
         summary.setCloseId(IdGenerator.newId());
@@ -124,5 +121,49 @@ public class CloseService {
         auditService.log("CloseSummary", closeId, "APPROVE", approverId, "HOLD", "CLOSE", "Close Approved", "v1.0");
 
         return summary;
+    }
+
+    @Transactional
+    public int overrideBatchExceptions(String batchId, String reason, String actorId) {
+        List<ReconciliationExceptionEntity> batchBlocking = blockingEvaluator.evaluate(batchId);
+        int count = 0;
+        for (ReconciliationExceptionEntity exc : batchBlocking) {
+            exc.setStatus("OVERRIDDEN");
+            exc.setOverrideReason(reason);
+            exc.setActorId(actorId);
+            auditService.log("ReconciliationException", exc.getExceptionId(), "OVERRIDE", actorId,
+                    "OPEN", "OVERRIDDEN", reason, "v1.0");
+            count++;
+        }
+        return count;
+    }
+
+    @Transactional(readOnly = true)
+    public List<BatchSummaryDTO> getBatchSummaries() {
+        List<SourceBatchEntity> batches = batchRepository.findAll();
+        List<BatchSummaryDTO> dtos = new java.util.ArrayList<>();
+        for (SourceBatchEntity b : batches) {
+            String decision;
+            int blockingCount = 0;
+            if ("QUARANTINED".equalsIgnoreCase(b.getStatus())) {
+                decision = "HOLD";
+            } else {
+                List<ReconciliationExceptionEntity> blocking = blockingEvaluator.evaluate(b.getBatchId());
+                blockingCount = blocking.size();
+                decision = (blockingCount == 0) ? "CLOSE" : "HOLD";
+            }
+            dtos.add(new BatchSummaryDTO(
+                    b.getBatchId(),
+                    b.getPartnerCode(),
+                    b.getSourceSystem(),
+                    b.getBusinessDate(),
+                    b.getDeclaredCount(),
+                    b.getDeclaredAmountPaise(),
+                    b.getStatus(),
+                    decision,
+                    blockingCount
+            ));
+        }
+        return dtos;
     }
 }
