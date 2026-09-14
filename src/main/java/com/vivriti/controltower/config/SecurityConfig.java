@@ -77,11 +77,11 @@ public class SecurityConfig {
                 // Generator & Reset — either role
                 .requestMatchers(HttpMethod.POST, "/api/v1/generate", "/api/v1/reset").hasAnyRole("OPERATOR", "APPROVER")
 
-                // Ingestion — operator
-                .requestMatchers(HttpMethod.POST, "/api/v1/ingest/**").hasRole("OPERATOR")
+                // Ingestion — either role
+                .requestMatchers(HttpMethod.POST, "/api/v1/ingest/**").hasAnyRole("OPERATOR", "APPROVER")
 
-                // Reconciliation — operator can trigger, both can read
-                .requestMatchers(HttpMethod.POST, "/api/v1/reconcile").hasRole("OPERATOR")
+                // Reconciliation — either role can trigger, both can read
+                .requestMatchers(HttpMethod.POST, "/api/v1/reconcile").hasAnyRole("OPERATOR", "APPROVER")
                 .requestMatchers(HttpMethod.GET, "/api/v1/match-decisions/**").hasAnyRole("OPERATOR", "APPROVER")
 
                 // Exceptions — operator can update/override via PUT or POST, both can read
@@ -89,8 +89,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/api/v1/exceptions/**").hasRole("OPERATOR")
                 .requestMatchers(HttpMethod.POST, "/api/v1/exceptions/**").hasRole("OPERATOR")
 
-                // Close — operator can evaluate, only approver can approve, both can read
-                .requestMatchers(HttpMethod.POST, "/api/v1/close/evaluate").hasRole("OPERATOR")
+                // Close — both can evaluate, only approver can approve, both can read
+                .requestMatchers(HttpMethod.POST, "/api/v1/close/evaluate").hasAnyRole("OPERATOR", "APPROVER")
                 .requestMatchers(HttpMethod.POST, "/api/v1/close/approve").hasRole("APPROVER")
                 .requestMatchers(HttpMethod.GET, "/api/v1/close/**").hasAnyRole("OPERATOR", "APPROVER")
 
