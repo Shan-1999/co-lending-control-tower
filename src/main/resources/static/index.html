@@ -52,7 +52,7 @@
 
     /* Left Navigation Sidebar */
     aside.sidebar {
-      width: 260px;
+      width: 275px;
       background: var(--bg-sidebar);
       border-right: 1px solid var(--border);
       display: flex;
@@ -61,6 +61,8 @@
       user-select: none;
       transition: all 0.2s ease;
       z-index: 100;
+      height: 100vh;
+      overflow: hidden;
     }
 
     aside.sidebar.collapsed {
@@ -71,10 +73,11 @@
     }
 
     .sidebar-header {
-      padding: 1.25rem 1.25rem 0.75rem;
+      padding: 1.15rem 1.25rem 0.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
     }
 
     .brand-wrap {
@@ -109,13 +112,31 @@
       color: var(--text-main);
     }
 
+    /* Sidebar Scrollable Body */
+    .sidebar-scrollable {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-dark) transparent;
+    }
+    .sidebar-scrollable::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scrollable::-webkit-scrollbar-thumb {
+      background: var(--border-dark);
+      border-radius: 4px;
+    }
+
     .action-run-btn {
-      margin: 0.5rem 1rem 0.75rem;
+      margin: 0.65rem 0.75rem 0.65rem;
       background: #ffffff;
       border: 1px solid var(--border-dark);
       color: var(--text-main);
       border-radius: 8px;
-      padding: 0.6rem 0.85rem;
+      padding: 0.55rem 0.8rem;
       font-size: 0.82rem;
       font-weight: 600;
       display: flex;
@@ -124,6 +145,7 @@
       gap: 0.5rem;
       cursor: pointer;
       transition: all 0.15s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
     .action-run-btn:hover {
       background: #f3f4f6;
@@ -134,30 +156,26 @@
       font-size: 0.65rem;
       font-weight: 700;
       color: var(--text-dim);
-      padding: 0.75rem 1.25rem 0.35rem;
+      padding: 0.65rem 1rem 0.35rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
 
     .nav-menu {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0.25rem 0.75rem;
+      padding: 0.15rem 0.65rem;
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
+      gap: 0.18rem;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.6rem 0.75rem;
+      gap: 0.65rem;
+      padding: 0.5rem 0.65rem;
       border-radius: 6px;
       color: var(--text-muted);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 500;
       cursor: pointer;
       border: none;
@@ -175,6 +193,18 @@
       color: var(--text-main);
       font-weight: 600;
     }
+    .nav-item .nav-icon {
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      width: 1.2rem;
+      text-align: center;
+    }
+    .nav-item .nav-label {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .nav-item .nav-count {
       margin-left: auto;
       font-size: 0.68rem;
@@ -184,17 +214,85 @@
       color: var(--text-main);
       font-family: var(--font-mono);
       font-weight: 600;
+      flex-shrink: 0;
     }
     .nav-item.active .nav-count {
       background: var(--text-main);
       color: #ffffff;
     }
 
+    /* Observability Compact Section */
+    .obs-card-section {
+      margin: 0.75rem 0.65rem 0.65rem;
+      padding: 0.65rem 0.65rem 0.6rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .obs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      margin-bottom: 0.45rem;
+    }
+    .obs-chip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem;
+    }
+    .obs-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.25rem;
+      padding: 0.35rem 0.45rem;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .obs-chip:hover {
+      background: #f3f4f6;
+      color: var(--text-main);
+      border-color: var(--border-dark);
+    }
+    .obs-chip .obs-name {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .obs-chip .obs-pill {
+      font-size: 0.58rem;
+      padding: 0.05rem 0.25rem;
+      border-radius: 3px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+    .obs-chip .obs-pill.green {
+      background: #ecfdf5;
+      color: #059669;
+    }
+    .obs-chip .obs-pill.blue {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
     /* Sidebar Footer User Card */
     .sidebar-footer {
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 0.85rem;
       border-top: 1px solid var(--border);
       background: var(--bg-sidebar);
+      flex-shrink: 0;
     }
     .sidebar-user-btn {
       width: 100%;
@@ -208,6 +306,7 @@
       cursor: pointer;
       text-align: left;
       transition: all 0.15s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
     .sidebar-user-btn:hover {
       border-color: var(--border-dark);
@@ -783,60 +882,76 @@
       <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="Collapse sidebar">✕</button>
     </div>
 
-    <button class="action-run-btn" onclick="triggerReset()">
-      <span>↻</span> Reset DB & Session
-    </button>
+    <!-- Scrollable Body for Navigation & Tools -->
+    <div class="sidebar-scrollable">
+      <button class="action-run-btn" onclick="triggerReset()">
+        <span>↻</span> Reset DB & Session
+      </button>
 
-    <div class="nav-section-title">Control Workstreams</div>
-    <div class="nav-menu">
-      <button class="nav-item active" onclick="navigate('opsPanel', this)">
-        Operations Center
-      </button>
-      <button class="nav-item" onclick="navigate('scorecardPanel', this)">
-        Gate Scorecard
-        <span class="nav-count" id="badgeGate">--</span>
-      </button>
-      <button class="nav-item" onclick="navigate('exceptionsPanel', this)">
-        Exception Queue
-        <span class="nav-count" id="badgeExceptions">0</span>
-      </button>
-      <button class="nav-item" onclick="navigate('clustersPanel', this)">
-        Root-Cause Clusters
-        <span class="nav-count" id="badgeClusters">0</span>
-      </button>
-      <button class="nav-item" onclick="navigate('closePanel', this)">
-        Batch Close Workbench
-      </button>
-      <button class="nav-item" onclick="navigate('tracePanel', this)">
-        Audit Lineage Trace
-      </button>
-      <button class="nav-item" onclick="navigate('juryPanel', this)">
-        Jury Scenarios
-      </button>
-    </div>
+      <div class="nav-section-title">Control Workstreams</div>
+      <div class="nav-menu">
+        <button class="nav-item active" onclick="navigate('opsPanel', this)">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">Operations Center</span>
+        </button>
+        <button class="nav-item" onclick="navigate('scorecardPanel', this)">
+          <span class="nav-icon">🛡️</span>
+          <span class="nav-label">Gate Scorecard</span>
+          <span class="nav-count" id="badgeGate">--</span>
+        </button>
+        <button class="nav-item" onclick="navigate('exceptionsPanel', this)">
+          <span class="nav-icon">⚠️</span>
+          <span class="nav-label">Exception Queue</span>
+          <span class="nav-count" id="badgeExceptions">0</span>
+        </button>
+        <button class="nav-item" onclick="navigate('clustersPanel', this)">
+          <span class="nav-icon">🔍</span>
+          <span class="nav-label">Root-Cause Clusters</span>
+          <span class="nav-count" id="badgeClusters">0</span>
+        </button>
+        <button class="nav-item" onclick="navigate('closePanel', this)">
+          <span class="nav-icon">⚖️</span>
+          <span class="nav-label">Batch Close Workbench</span>
+        </button>
+        <button class="nav-item" onclick="navigate('tracePanel', this)">
+          <span class="nav-icon">📜</span>
+          <span class="nav-label">Audit Lineage Trace</span>
+        </button>
+        <button class="nav-item" onclick="navigate('juryPanel', this)">
+          <span class="nav-icon">🎯</span>
+          <span class="nav-label">Jury Scenarios</span>
+        </button>
+      </div>
 
-    <div class="nav-section-title">Observability & Actuator</div>
-    <div class="nav-menu" style="flex:none; padding-bottom:0.5rem;">
-      <a class="nav-item" href="/actuator/health" target="_blank" style="text-decoration:none;">
-        Health & DB
-        <span class="nav-count" style="background:#ecfdf5; color:#059669;">UP</span>
-      </a>
-      <a class="nav-item" href="/actuator/logfile" target="_blank" style="text-decoration:none;">
-        System Logfile ↗
-        <span class="nav-count" style="background:#eff6ff; color:#2563eb;">LOGS</span>
-      </a>
-      <a class="nav-item" href="/actuator/loggers" target="_blank" style="text-decoration:none;">
-        Loggers & Levels ↗
-      </a>
-      <a class="nav-item" href="/actuator/metrics" target="_blank" style="text-decoration:none;">
-        Metrics & JVM ↗
-      </a>
-      <a class="nav-item" href="/actuator/httpexchanges" target="_blank" style="text-decoration:none;">
-        Execution Trace ↗
-      </a>
-      <a class="nav-item" href="/actuator/info" target="_blank" style="text-decoration:none;">
-        App Info ↗
-      </a>
+      <!-- Compact Observability & Endpoints Card -->
+      <div class="obs-card-section">
+        <div class="obs-header" onclick="toggleObsPanel()" style="cursor:pointer;" title="Click to toggle tools">
+          <span class="nav-section-title" style="padding:0;">Observability & Tools</span>
+          <span id="obsChevron" style="font-size:0.75rem; color:var(--text-dim); transition:transform 0.2s;">▾</span>
+        </div>
+        <div id="obsGridContainer" class="obs-chip-grid">
+          <a class="obs-chip" href="/actuator/logfile" target="_blank" title="Real-Time System Logfile">
+            <span class="obs-name"><span>📄</span> Logfile</span>
+            <span class="obs-pill blue">LOGS</span>
+          </a>
+          <a class="obs-chip" href="/actuator/health" target="_blank" title="PostgreSQL & Engine Health">
+            <span class="obs-name"><span>💚</span> Health</span>
+            <span class="obs-pill green">UP</span>
+          </a>
+          <a class="obs-chip" href="/swagger-ui/index.html" target="_blank" title="Interactive OpenAPI / Swagger UI">
+            <span class="obs-name"><span>⚡</span> Swagger</span>
+          </a>
+          <a class="obs-chip" href="/actuator/metrics" target="_blank" title="JVM & System Metrics">
+            <span class="obs-name"><span>📊</span> Metrics</span>
+          </a>
+          <a class="obs-chip" href="/actuator/loggers" target="_blank" title="Dynamic Log Level Configuration">
+            <span class="obs-name"><span>⚙️</span> Loggers</span>
+          </a>
+          <a class="obs-chip" href="/actuator/httpexchanges" target="_blank" title="HTTP Execution Traces">
+            <span class="obs-name"><span>🔍</span> Trace</span>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Sidebar Footer: Clickable Profile Switcher -->
@@ -1413,6 +1528,19 @@
     function toggleSidebar() {
       const sidebar = document.getElementById('appSidebar');
       sidebar.classList.toggle('collapsed');
+    }
+
+    function toggleObsPanel() {
+      const grid = document.getElementById('obsGridContainer');
+      const chev = document.getElementById('obsChevron');
+      if (!grid) return;
+      if (grid.style.display === 'none') {
+        grid.style.display = 'grid';
+        if (chev) chev.style.transform = 'rotate(0deg)';
+      } else {
+        grid.style.display = 'none';
+        if (chev) chev.style.transform = 'rotate(-90deg)';
+      }
     }
 
     function navigate(panelId, btn) {
