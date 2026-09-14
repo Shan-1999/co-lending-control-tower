@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vivriti.controltower.canonical.*;
 import com.vivriti.controltower.common.MoneyUtils;
 import com.vivriti.controltower.exception.RootCauseClusterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,6 +29,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class EvaluationReporter {
+
+    private static final Logger log = LoggerFactory.getLogger(EvaluationReporter.class);
 
     private final MatchDecisionRepository matchDecisionRepository;
     private final CanonicalEventRepository canonicalEventRepository;
@@ -203,31 +207,36 @@ public class EvaluationReporter {
                                 int timing, long timingPaise, int unresolved, long unresolvedPaise,
                                 int falseMatches, long falseMatchPaise, double stp, long deltaPaise,
                                 int probable, double precision, double recall, int clusters, int exceptionCount) {
-        System.out.println("\n" + "=".repeat(78));
-        System.out.println("          VIVRITI CO-LENDING CONTROL TOWER — EVALUATION SCORECARD");
-        System.out.println("=".repeat(78));
-        System.out.println("SECTION A: PHASE 1 MANDATORY GATE (DETERMINISTIC FINANCIAL ENGINE)");
-        System.out.println("-".repeat(78));
-        System.out.printf("  Total Loan Instructions Evaluated : %,d%n", totalLoans);
-        System.out.printf("  Level 1 Exact Match Rate          : %,d (%.2f%%) | %s%n", exact, (double) exact / totalLoans * 100, MoneyUtils.formatPaiseAsInr(exactPaise));
-        System.out.printf("  Level 2 Composite Split Match Rate: %,d (%.2f%%) | %s%n", composite, (double) composite / totalLoans * 100, MoneyUtils.formatPaiseAsInr(compositePaise));
-        System.out.printf("  Level 3 Timing Difference (Grace) : %,d (%.2f%%) | %s%n", timing, (double) timing / totalLoans * 100, MoneyUtils.formatPaiseAsInr(timingPaise));
-        System.out.printf("  Level 5 Unresolved Breaks (Owned) : %,d (%.2f%%) | %s%n", unresolved, (double) unresolved / totalLoans * 100, MoneyUtils.formatPaiseAsInr(unresolvedPaise));
-        System.out.printf("  Straight-Through Processing (STP) : %.2f%%%n", stp);
-        System.out.printf("  Control Total Integrity Delta     : %s (Target: ₹0.00)%n", MoneyUtils.formatPaiseAsInr(deltaPaise));
-        System.out.println("  ----------------------------------------------------------------------------");
-        System.out.printf("  >>> FALSE MATCH EXPOSURE          : COUNT: %d, VALUE: %s <<<%n", falseMatches, MoneyUtils.formatPaiseAsInr(falseMatchPaise));
-        System.out.printf("  >>> PHASE 1 HARD GATE STATUS      : %s <<<%n", (falseMatches == 0 && deltaPaise == 0 ? "PASSED (0 FALSE MATCHES)" : "FAILED"));
-        System.out.println("-".repeat(78));
-        System.out.println("SECTION B: PHASE 2 INTELLIGENCE (READ-ONLY ADVISORY & CLUSTERING)");
-        System.out.println("-".repeat(78));
-        System.out.printf("  Level 4 Probable Match Proposals  : %,d proposals (Requires Human Approval)%n", probable);
-        System.out.printf("  Probable Match Precision          : %.2f%%%n", precision);
-        System.out.printf("  Probable Match Recall             : %.2f%%%n", recall);
-        System.out.printf("  Root-Cause Clusters Identified    : %,d distinct systemic integration patterns%n", clusters);
-        System.out.printf("  Active Exception Queue Inventory   : %,d owned exceptions tracked with SLA clocks%n", exceptionCount);
-        System.out.println("  AI/Probabilistic Guardrail        : 100% READ-ONLY ADVISORY (Zero Auto-Reconciliation)");
-        System.out.println("=".repeat(78) + "\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n").append("=".repeat(78)).append("\n");
+        sb.append("          VIVRITI CO-LENDING CONTROL TOWER — EVALUATION SCORECARD\n");
+        sb.append("=".repeat(78)).append("\n");
+        sb.append("SECTION A: PHASE 1 MANDATORY GATE (DETERMINISTIC FINANCIAL ENGINE)\n");
+        sb.append("-".repeat(78)).append("\n");
+        sb.append(String.format("  Total Loan Instructions Evaluated : %,d%n", totalLoans));
+        sb.append(String.format("  Level 1 Exact Match Rate          : %,d (%.2f%%) | %s%n", exact, (double) exact / totalLoans * 100, MoneyUtils.formatPaiseAsInr(exactPaise)));
+        sb.append(String.format("  Level 2 Composite Split Match Rate: %,d (%.2f%%) | %s%n", composite, (double) composite / totalLoans * 100, MoneyUtils.formatPaiseAsInr(compositePaise)));
+        sb.append(String.format("  Level 3 Timing Difference (Grace) : %,d (%.2f%%) | %s%n", timing, (double) timing / totalLoans * 100, MoneyUtils.formatPaiseAsInr(timingPaise)));
+        sb.append(String.format("  Level 5 Unresolved Breaks (Owned) : %,d (%.2f%%) | %s%n", unresolved, (double) unresolved / totalLoans * 100, MoneyUtils.formatPaiseAsInr(unresolvedPaise)));
+        sb.append(String.format("  Straight-Through Processing (STP) : %.2f%%%n", stp));
+        sb.append(String.format("  Control Total Integrity Delta     : %s (Target: ₹0.00)%n", MoneyUtils.formatPaiseAsInr(deltaPaise)));
+        sb.append("  ----------------------------------------------------------------------------\n");
+        sb.append(String.format("  >>> FALSE MATCH EXPOSURE          : COUNT: %d, VALUE: %s <<<%n", falseMatches, MoneyUtils.formatPaiseAsInr(falseMatchPaise)));
+        sb.append(String.format("  >>> PHASE 1 HARD GATE STATUS      : %s <<<%n", (falseMatches == 0 && deltaPaise == 0 ? "PASSED (0 FALSE MATCHES)" : "FAILED")));
+        sb.append("-".repeat(78)).append("\n");
+        sb.append("SECTION B: PHASE 2 INTELLIGENCE (READ-ONLY ADVISORY & CLUSTERING)\n");
+        sb.append("-".repeat(78)).append("\n");
+        sb.append(String.format("  Level 4 Probable Match Proposals  : %,d proposals (Requires Human Approval)%n", probable));
+        sb.append(String.format("  Probable Match Precision          : %.2f%%%n", precision));
+        sb.append(String.format("  Probable Match Recall             : %.2f%%%n", recall));
+        sb.append(String.format("  Root-Cause Clusters Identified    : %,d distinct systemic integration patterns%n", clusters));
+        sb.append(String.format("  Active Exception Queue Inventory   : %,d owned exceptions tracked with SLA clocks%n", exceptionCount));
+        sb.append("  AI/Probabilistic Guardrail        : 100% READ-ONLY ADVISORY (Zero Auto-Reconciliation)\n");
+        sb.append("=".repeat(78)).append("\n");
+
+        String formatted = sb.toString();
+        System.out.print(formatted);
+        log.info("{}", formatted);
     }
 }
 

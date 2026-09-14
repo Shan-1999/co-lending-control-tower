@@ -6,6 +6,8 @@ import com.vivriti.controltower.common.enums.EventType;
 import com.vivriti.controltower.common.enums.SourceSystem;
 import com.vivriti.controltower.generator.groundtruth.GroundTruthRecord;
 import com.vivriti.controltower.generator.groundtruth.GroundTruthWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -17,6 +19,8 @@ import java.util.*;
 
 @Service
 public class SyntheticDataGenerator {
+
+    private static final Logger log = LoggerFactory.getLogger(SyntheticDataGenerator.class);
 
     private final AnomalyInjector anomalyInjector;
     private final PartnerAlphaWriter alphaWriter = new PartnerAlphaWriter();
@@ -207,6 +211,7 @@ public class SyntheticDataGenerator {
         groundTruthWriter.writeGroundTruth(gtDir, gtRecords);
         reportWriter.writeReport(outDir, finalScenarios, totalRecords, recordsBySourceSystem);
         
+        log.info("Data generation complete. Total loans: {}, Total records: {}", finalScenarios.size(), totalRecords);
         System.out.println("Data generation complete.");
         System.out.println("Total loans: " + finalScenarios.size());
         System.out.println("Total records: " + totalRecords);
